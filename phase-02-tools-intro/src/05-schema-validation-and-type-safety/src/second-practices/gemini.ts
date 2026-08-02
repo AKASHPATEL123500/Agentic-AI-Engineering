@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { zodToJsonSchema } from "zod-to-json-schema";
 
 // 1. PEHLE BASE SCHEMA DEFINE KARO
 const bulkUserBaseSchema = z.object({
@@ -26,28 +25,6 @@ export const bulkUserSchema = bulkUserBaseSchema.refine(
     message: "Duplicate emails found in the batch input!",
     path: ["users"],
   },
-);
-
-// 3. CONVERTER FUNCTION
-export function convertToLLMSchema(zodSchema: z.ZodTypeAny, ToolName: string) {
-  return {
-    name: ToolName,
-    parameters: zodToJsonSchema(zodSchema as any, {
-      name: ToolName,
-      $refStrategy: "none",
-      target: "openApi3",
-    }),
-  };
-}
-
-// 4. AB CALL KARO (SCHEMA DEFINITION KE BAAD)
-const jsonSchemaForLLM = convertToLLMSchema(
-  bulkUserBaseSchema,
-  "register-user",
-);
-console.log(
-  "JSON SCHEMA For LLM:\n",
-  JSON.stringify(jsonSchemaForLLM, null, 2),
 );
 
 // =================== ZOD BUILT IN LIB ===========================
