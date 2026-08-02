@@ -4,6 +4,7 @@ export interface StandardToolResponse<TData = unknown> {
   success: boolean;
   data: TData | null;
   status: "success" | "faild" | "denied";
+  message: string;
   error: {
     code: number;
     message: string;

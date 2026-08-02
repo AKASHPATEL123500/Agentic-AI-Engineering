@@ -1,5 +1,6 @@
 import type { ToolContext, ToolType } from "./types.ts";
 import { createFolderTool } from "./tool.ts";
+import { WriteFileTool } from "./writefile-.ts";
 
 async function test() {
   const dummyContext: ToolContext = {
@@ -19,7 +20,7 @@ async function test() {
   console.log("result", result);
 }
 
-test();
+// test();
 
 // result {
 //   success: false,
@@ -40,3 +41,25 @@ test();
 //     }
 //   }
 // }
+
+async function test2() {
+  const dummyContext: ToolContext = {
+    userId: "user-123",
+    role: "admin",
+    workingDir: "./sandbox",
+    sessionId: "session-456",
+  };
+  // You can add more test cases here
+  const result = await WriteFileTool.execute(
+    {
+      path: "hello.txt",
+      mode: "append",
+      content: "Hello this is chpater 5 schema validation and test",
+      encoding: "utf-8",
+    },
+    dummyContext,
+  );
+  console.log("result", result);
+}
+
+test2();
