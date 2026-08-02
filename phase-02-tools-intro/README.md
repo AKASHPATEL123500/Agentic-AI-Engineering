@@ -184,9 +184,9 @@ phase-02-tool-engineering/
 ## 🟢 Block 1: Anatomy, Contract & Context
 
 - [ ] **00. Tool Fundamentals** (Tool vs Function, Use-cases)
-- [ ] **01. Tool Anatomy** (Metadata, Name, Description)
-- [ ] **02. Tool Interface & Contract** (Standardizing TS Interface)
-- [ ] **03. Execution Context** (UserId, SessionKey, WorkingDir)
+- [ ] **01. Tool Interface & Contract** (Standardizing TS Interface)
+- [ ] **02. Execution Context** (UserId, SessionKey, WorkingDir)
+- [ ] **03. Tool Anatomy** (Metadata, Name, Description)
 - [ ] **04. Input & Output Standardization** (Result Structures)
 - [ ] **05. Schema Validation & Type Safety** (Zod & Type Guards)
 
@@ -222,3 +222,5 @@ phase-02-tool-engineering/
 - [ ] **24. Performance Optimization** (Caching & Speed)
 - [ ] **25. Production Tool Engine** (Architecture Blueprint)
 - [ ] **26. Final Project** (Complete End-to-End Build)
+
+##### Day 2

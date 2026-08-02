@@ -1,18 +1,17 @@
-import type { z } from "zod";
+import { z } from "zod";
 
 export interface ToolContext {
   userId: string;
-  role: "user" | "admin" | "guest";
   sessionKey: string;
   workingDir: string;
-  dryRun?: boolean;
+  role: "user" | "guest" | "admin" | "vip";
 }
 
 export interface ToolType<
   TParams extends z.ZodObject<z.ZodRawShape> = z.ZodObject<z.ZodRawShape>,
 > {
   name: string;
-  description: string;
+  descriptions: string;
   parameters: TParams;
-  execute: (args: z.infer<TParams>, context?: ToolContext) => Promise<unknown>;
+  execute: (args: z.infer<TParams>, context: ToolContext) => Promise<unknown>;
 }

@@ -9,12 +9,12 @@ TypeScript mein iska kya kaam hai?Code mein hum <T> likhte hain.
 // WithOut Genric
 
 // Yeh function sirf Number le sakta hai aur Number de sakta hai
-function numberBox(num: number) {
-  return {};
+function numberBox(_num: number) {
+	return {};
 }
 // Ye function sirf String le sakta hai aur string de sakta hai bass
-function stringBox(T: string) {
-  return T;
+function stringBox(_T: string) {
+	return _T;
 }
 
 stringBox("heloo");
@@ -25,7 +25,7 @@ numberBox(20);
 
 // Humne ek hi function banaya aur usme <T> laga diya:
 function myData<T>(item: T) {
-  return item;
+	return item;
 }
 
 myData(10);
@@ -40,14 +40,14 @@ import { z } from "zod";
 
 // Yeh humara generic function hai. <T> ka matlab yeh kisi bhi type ke liye chalega.
 function checkMyData<T>(schema: z.ZodType<T>, data: unknown): T {
-  return schema.parse(data); // Yeh data check karega aur sahi type return karega
+	return schema.parse(data); // Yeh data check karega aur sahi type return karega
 }
 
 // --- USE KAISE KAREIN? ---
 
 // 1. Ek rule banaya User ke liye
 const UserRule = z.object({
-  name: z.string(),
+	name: z.string(),
 });
 
 // 2. Function ko use kiya

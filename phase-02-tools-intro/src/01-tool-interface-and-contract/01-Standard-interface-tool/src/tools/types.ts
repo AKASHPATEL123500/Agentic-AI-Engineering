@@ -6,7 +6,7 @@
 //   excute: (agrs: toolArgv) => Promise<any>;
 // }
 
-import { z } from "zod";
+import type { z } from "zod";
 // 1. Tool Context (Extra Info jo Tool ko mil sakti hai)
 export interface ToolContext {
   userId?: string;
@@ -15,7 +15,7 @@ export interface ToolContext {
 // 2. Main Scaled Tool Interface
 // TParams extends z.ZodObject<any> ka matlab: Parameters HAMESHA ek Zod Object Schema honge
 export interface ToolTypes<
-  TParams extends z.ZodObject<any> = z.ZodObject<any>,
+  TParams extends z.ZodObject<z.ZodRawShape> = z.ZodObject<z.ZodRawShape>,
 > {
   name: string;
   description: string;
