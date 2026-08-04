@@ -67,7 +67,7 @@ export class ToolRegistry implements IToolRegistry {
         );
       }
     }
-    // 3. if all condition is pass then add tool in the tool list Map
+    // STEP 4: All checks passed -> Register / Update Tool in Map
     this.tool.set(normalizeName, tool);
   }
 
