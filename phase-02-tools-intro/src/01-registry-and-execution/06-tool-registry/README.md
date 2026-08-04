@@ -92,3 +92,31 @@ chapter-08-tool-registry/
     ├── Cline/
     └── README.md
 ```
+
+```text
+06-tool-registry/
+│
+├── 01-registry-fundamentals/               [COMPLETED ✅]
+│   ├── Concept: Map vs Object vs Array
+│   ├── Concept: O(1) Lookup & Registry Purpose
+│   └── Concept: Basic Map operations (.set, .get, .has)
+│
+├── 02-registry-contract-and-errors/        [ABHI HUM YAHAN HAIN 🎯]
+│   ├── 1. Registry Interfaces & Contracts  (Registry Class ke paas kya methods hone chahiye)
+│   ├── 2. Custom Registry Errors           (Standard vs Custom Error: Duplicate & NotFound)
+│   ├── 3. Registry Options & Configuration (Allow Overwrite, Strict Flags)
+│   └── 4. Metadata Structure               (Tags, Categories, Versions, Priority)
+│
+├── 03-core-operations-and-validation/      [NEXT STEP ⏭️]
+│   ├── 1. CRUD Methods Logic               (Register, Unregister, Get, Has, List, Clear)
+│   ├── 2. Strict Input Validations         (Missing metadata, Invalid Tool shape checks)
+│   ├── 3. Name Normalization               ("get-weather" vs "get_weather" formatting)
+│   └── 4. Version Conflict Handling        (Tool v1 vs Tool v2 handling)
+│
+└── 04-advanced-registry-features/          [FINAL STEP 🚀]
+    ├── 1. Search & Filtering System        (Search tools by tag, category, priority)
+    ├── 2. Registry Event Lifecycle         (Events: onRegister, onRemove, onUpdate)
+    ├── 3. Registry Hooks & Middleware      (Hooks: beforeRegister, afterRegister)
+    ├── 4. Persistence (Import/Export)      (Registry snapshot ko JSON me save/load karna)
+    └── 5. Safe LLM Schema Export           (Base schema ko OpenAPI JSON format me dena)
+```

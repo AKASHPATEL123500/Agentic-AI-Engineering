@@ -55,3 +55,12 @@ if (agentRegistry.has(toolName)) {
 } else {
   console.log("Sorry, mere paas ye tool nahi hai.");
 }
+
+// Delete a tools
+agentRegistry.delete("calculator_tool");
+console.log("Kya calculator tool hai:", agentRegistry.has("calculator_tool"));
+// Output: Kya calculator tool hai: false
+
+// Ek line mein: .forEach() ek aisa automatic loop hai jo Map ke andar baithe
+//  har ek tool ke paas baari-baari (one by one)
+// jata hai aur un par aapka bataya hua kaam karta hai.

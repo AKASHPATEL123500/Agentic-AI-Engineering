@@ -18,3 +18,9 @@ const instantLookUp = toolRegistry.get("weather_tool");
 if (toolRegistry.has("weather_tool")) {
   console.log("This is already exixts");
 }
+
+// .set(key, value): Adds or updates a tool instantly.
+// .has(key): Prevents duplicate registration errors before touching execution logic.
+// .get(key): Fetches the exact tool in $O(1)$ constant time,
+// avoiding slow array.find() loops.
+// .forEach() / .values(): Makes it effortless to loop through all tools and dump their schemas for the LLM.
