@@ -8,7 +8,7 @@
 // priority: e.g., 1 (High priority tools pehle dikhe)
 
 export interface ToolMetaData {
-  category?: "finance" | "weather" | "files" | "utilities" | string;
+  category: "finance" | "weather" | "files" | "utilities" | string;
   tags: string[];
   author?: string;
   version?: string;

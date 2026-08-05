@@ -2,15 +2,15 @@
 // Jab koi tool register hone aaye, toh silently accept nahi hoga. Hum structural check karenge:
 //Kya tool object mein name present hai?
 
-import type { RegistryOptions } from "../02-registry-contract-and-errors/src/03-registry-options-&-configuration";
-import type { ToolType } from "../02-registry-contract-and-errors/src/types";
+import type { RegistryOptions } from "../02-registry-contract-and-errors/src/03-registry-options-&-configuration.ts";
+import type { ToolType } from "../02-registry-contract-and-errors/src/types.ts";
 import { InvalidToolError } from "../02-registry-contract-and-errors/src/02-custom-registry-errors.ts";
 
 // Kya execute function present aur callable hai?
 // Kya parameter schema (Zod) defined hai?
 // Agar nahi hai, toh humara InvalidToolError throw hoga.
 
-/*
+/**
 1. Basic Object Check
 2. Name ValiDations
 3. Execution Function Check
@@ -62,7 +62,6 @@ export function ValidateTools(tool: ToolType, option: RegistryOptions): void {
     if (
       !tool.metadata.category ||
       !tool.metadata.tags ||
-      !tool.metadata.author ||
       tool.metadata.tags.length === 0
     ) {
       throw new InvalidToolError(

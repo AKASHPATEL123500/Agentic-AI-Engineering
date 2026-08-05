@@ -15,6 +15,7 @@
 // to ye sab hum pahle hi interface mein define kar de rahe hai
 // hum kah sakte hai ki rule ban de rahe hai
 // ki ek class ke pass ye ye chizen honi chaiye
+import type { LLMToolSchema } from "../../04-advanced-registry-features/05-safe-llm.schema-export.ts";
 import type { ToolType } from "./types.ts";
 
 export interface IToolRegistry {
@@ -25,5 +26,8 @@ export interface IToolRegistry {
   list(): ToolType[]; // Store mein jitne bhi tools hain, unki poori list/array laa kar dega. and retrun Type ToolType with array list  []
 
   clear(): void;
-  getLLMSchema(): any[];
+  getLLMSchema(): LLMToolSchema[];
+
+  searchByCategory?(category: string): ToolType[];
+  searchByTag?(tag: string): ToolType[];
 }
