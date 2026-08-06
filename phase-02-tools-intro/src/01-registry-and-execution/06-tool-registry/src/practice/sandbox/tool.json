@@ -1,0 +1,107 @@
+{
+  "version": "1.0.0",
+  "exportedAt": "2026-08-06T16:21:04.352Z",
+  "toolLegnth": 1,
+  "tools": [
+    {
+      "name": "get_weather",
+      "description": "Fetches current weather information for a given city.",
+      "version": "1.0.0",
+      "metadata": {
+        "category": [
+          "weather",
+          "live-weather"
+        ],
+        "tags": [
+          "api",
+          "live",
+          "forecast"
+        ],
+        "version": "1.0.0",
+        "ppriority": 1,
+        "createdAt": "2026-08-06T16:21:04.345Z",
+        "timestamps": "2026-08-06T16:21:04.347Z"
+      },
+      "params": {
+        "def": {
+          "type": "object",
+          "shape": {
+            "countries": {
+              "def": {
+                "type": "default",
+                "innerType": {
+                  "def": {
+                    "type": "enum",
+                    "entries": {
+                      "india": "india",
+                      "singapore": "singapore",
+                      "vietnam": "vietnam",
+                      "china": "china"
+                    }
+                  },
+                  "type": "enum",
+                  "enum": {
+                    "india": "india",
+                    "singapore": "singapore",
+                    "vietnam": "vietnam",
+                    "china": "china"
+                  },
+                  "options": [
+                    "india",
+                    "singapore",
+                    "vietnam",
+                    "china"
+                  ]
+                },
+                "defaultValue": "india"
+              },
+              "type": "default"
+            },
+            "city": {
+              "def": {
+                "type": "string",
+                "checks": [
+                  {},
+                  {}
+                ]
+              },
+              "type": "string",
+              "format": null,
+              "minLength": null,
+              "maxLength": null
+            },
+            "unit": {
+              "def": {
+                "type": "default",
+                "innerType": {
+                  "def": {
+                    "type": "enum",
+                    "entries": {
+                      "celsius": "celsius",
+                      "fahrenheit": "fahrenheit",
+                      "Imperial": "Imperial"
+                    }
+                  },
+                  "type": "enum",
+                  "enum": {
+                    "celsius": "celsius",
+                    "fahrenheit": "fahrenheit",
+                    "Imperial": "Imperial"
+                  },
+                  "options": [
+                    "celsius",
+                    "fahrenheit",
+                    "Imperial"
+                  ]
+                },
+                "defaultValue": "celsius"
+              },
+              "type": "default"
+            }
+          }
+        },
+        "type": "object"
+      }
+    }
+  ]
+}
