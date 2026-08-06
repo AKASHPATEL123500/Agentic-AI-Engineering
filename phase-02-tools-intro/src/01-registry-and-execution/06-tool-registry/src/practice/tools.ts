@@ -60,7 +60,11 @@ export const getWatherTool: ToolType<typeof getWeatherScehma, WeatherData> = {
             message:
               "[UNAUTHROZIED ACCESS] Context is require dto run  this tool",
           },
-          meta: metaData("unauthrozied"),
+          meta: metaData("unauthrozied", {
+            name: getWatherTool.name,
+            description: getWatherTool.description,
+            version: getWatherTool.version,
+          }),
         };
       }
 
@@ -74,7 +78,11 @@ export const getWatherTool: ToolType<typeof getWeatherScehma, WeatherData> = {
             code: 401,
             message: "[INVAILD ACCESS] Inavild Credential Error",
           },
-          meta: metaData("unauthrozied"),
+          meta: metaData("unauthrozied", {
+            name: getWatherTool.name,
+            description: getWatherTool.description,
+            version: getWatherTool.version,
+          }),
         };
       }
 
@@ -98,7 +106,11 @@ export const getWatherTool: ToolType<typeof getWeatherScehma, WeatherData> = {
         message: "Weather fetch successfully",
         data: mockData,
         error: null,
-        meta: metaData("complete"),
+        meta: metaData("complete", {
+          name: getWatherTool.name,
+          description: getWatherTool.description,
+          version: getWatherTool.version,
+        }),
       };
     } catch (err: any) {
       if (err instanceof z.ZodError) {
@@ -124,7 +136,11 @@ export const getWatherTool: ToolType<typeof getWeatherScehma, WeatherData> = {
           message:
             err.message || "An unexpected error occurred inside the tool.",
         },
-        meta: metaData("failed"),
+        meta: metaData("failed", {
+          name: getWatherTool.name,
+          description: getWatherTool.description,
+          version: getWatherTool.version,
+        }),
       };
     }
   },

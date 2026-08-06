@@ -1,5 +1,9 @@
 import { normalizedToolName } from "./normalize.tool.ts";
-import { exportRegistryToJSON, importFromJSON } from "./presistence.ts";
+// FIX: alias import to avoid name collision with class method `importFromJSON`
+import {
+  exportRegistryToJSON,
+  importFromJSON as importRegistryFromJSON,
+} from "./presistence.ts";
 import { DuplicateToolError, ToolNotFoundError } from "./registry.error.ts";
 import type { IToolRegistry, RegistryOptions } from "./registry.type.ts";
 import { ExportToLLMSchema } from "./safe.llm.schema.ts";
@@ -110,7 +114,7 @@ export class ToolRegistry implements IToolRegistry {
     );
   }
   importFromJSON(filePath: string): void {
-    const loadedTools: ToolType[] = importFromJSON(filePath) || [];
+    const loadedTools: ToolType[] = importRegistryFromJSON(filePath) || [];
 
     const orginalStrictSetting = this.options.strictValidation;
     this.options.strictValidation = false;
@@ -135,11 +139,3 @@ export class ToolRegistry implements IToolRegistry {
     );
   }
 }
-
-const news = new ToolRegistry({
-  allowOverWrite: true,
-  strictMetadataCheck: true,
-  strictValidation: true,
-});
-
-console.log(news.options);

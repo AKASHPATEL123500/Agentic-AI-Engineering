@@ -1,5 +1,5 @@
 import type { ToolType } from "./types.ts";
-
+import { z } from "zod";
 export interface SafeLLMSceham {
   type: "function";
   function: {
@@ -15,7 +15,7 @@ export function ExportToLLMSchema(tool: ToolType): SafeLLMSceham {
     function: {
       name: tool.name,
       description: tool.description,
-      params: tool.params,
+      params: z.toJSONSchema(tool.params),
     },
   };
 }

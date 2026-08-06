@@ -1,11 +1,6 @@
+import { getWatherTool } from "../tools.ts";
 import { registry } from "./test.ts";
 
-console.log("\n--- [TEST 4]: JSON File Persistence Sync ---");
-
-// File Export
-registry.exportFromJson();
-
-// Clear In-Memory Map
-registry.clear();
-console.log("Registry cleared. Total tools in memory:", registry.list().length); // Expected: 0
-console.log("\n--- [TEST 4]: JSON File Persistence successfully end ---");
+console.log("\n--- [TEST 1]: Registering Tool ---");
+registry.register(getWatherTool);
+console.log("\n--- [TEST 1]: RegisterED Tool Successfully ---");

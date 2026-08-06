@@ -12,16 +12,16 @@ async function testDuplicateBug() {
     strictValidation: true,
   });
 
-  console.log("▶ STEP 1: Registering 'get_weather' for the FIRST time...");
-  registry.register(getWatherTool);
-  console.log(
-    "✅ First registration successful! Memory tools count:",
-    registry.list().length,
-  );
+  // console.log("▶ STEP 1: Registering 'get_weather' for the FIRST time...");
+  // registry.register(getWatherTool);
+  // console.log(
+  //   "✅ First registration successful! Memory tools count:",
+  //   registry.list().length,
+  // );
 
-  console.log(
-    "\n▶ STEP 2: Registering 'get_weather' AGAIN (Duplicate Check)...",
-  );
+  // console.log(
+  //   "\n▶ STEP 2: Registering 'get_weather' AGAIN (Duplicate Check)...",
+  // );
   try {
     // Ye second call FATNA chahiye DuplicateToolError ke sath
     registry.register(getWatherTool);

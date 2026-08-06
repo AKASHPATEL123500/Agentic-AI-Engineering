@@ -1,6 +1,8 @@
 import { z } from "zod";
 import type { ToolMetaData } from "./tool.metadata.ts";
 
+// FIX: Relaxed response interface to match actual tool return structures (tools use `meta` and optional `error`).
+
 export interface ToolContext {
   userId: string;
   sessionId: string;
@@ -16,25 +18,27 @@ export interface StandaradrizationToolResponse<TData> {
   status: "success" | "faild" | "denied" | "crash";
   message?: string;
   data: TData | null;
-  error: {
-    errorName: string;
-    code: string | number;
-    message: string;
-  };
-  metaData: {
-    executionTimeMs: string | number;
-    timestamps: string | number;
-    requestId: string;
-    toolDetails: {
-      name: string;
-      descriptions: string;
-      version: string;
-      timestamps?: number;
+  // error may be null or contain custom details depending on tool
+  error?: {
+    code?: string | number;
+    message?: string;
+    [key: string]: any;
+  } | null;
+  // Some tools use `meta` key; others may use `metaData` — accept either
+  meta?: {
+    executionTimeMs?: number;
+    timestamps?: string | number;
+    requestId?: string;
+    toolDetails?: {
+      name?: string;
+      description?: string;
+      version?: string;
+      [key: string]: any;
     };
-    agentDetails: {
-      name: string;
-      version: string;
-      status:
+    agent?: {
+      name?: string;
+      version?: string;
+      status?:
         | "complete"
         | "in-progress"
         | "failed"
@@ -42,8 +46,11 @@ export interface StandaradrizationToolResponse<TData> {
         | "max-reached"
         | "unauthrozied"
         | "guest-error";
+      [key: string]: any;
     };
+    [key: string]: any;
   };
+  metaData?: Record<string, any>;
 }
 export interface ToolType<
   TParams extends z.ZodObject<z.ZodRawShape> = z.ZodObject<z.ZodRawShape>,
