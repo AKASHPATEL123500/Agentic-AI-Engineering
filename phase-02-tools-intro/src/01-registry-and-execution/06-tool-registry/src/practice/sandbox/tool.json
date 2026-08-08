@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "exportedAt": "2026-08-06T18:05:37.016Z",
+  "exportedAt": "2026-08-06T19:30:47.342Z",
   "toolLegnth": 1,
   "tools": [
     {
@@ -8,12 +8,19 @@
       "description": "Fetches current weather information for a given city.",
       "version": "1.0.0",
       "metadata": {
-        "category": ["weather", "live-weather"],
-        "tags": ["api", "live", "forecast"],
+        "category": [
+          "weather",
+          "live-weather"
+        ],
+        "tags": [
+          "api",
+          "live",
+          "forecast"
+        ],
         "version": "1.0.0",
         "ppriority": 1,
-        "createdAt": "2026-08-06T18:05:37.007Z",
-        "timestamps": "2026-08-06T18:05:37.008Z"
+        "createdAt": "2026-08-06T19:30:47.332Z",
+        "timestamps": "2026-08-06T19:30:47.333Z"
       },
       "params": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -23,7 +30,12 @@
             "default": "india",
             "description": "This is resion that is rquired to get weather frequntly",
             "type": "string",
-            "enum": ["india", "singapore", "vietnam", "china"]
+            "enum": [
+              "india",
+              "singapore",
+              "vietnam",
+              "china"
+            ]
           },
           "city": {
             "type": "string",
@@ -33,10 +45,18 @@
             "default": "celsius",
             "description": "This is unit choose any one",
             "type": "string",
-            "enum": ["celsius", "fahrenheit", "Imperial"]
+            "enum": [
+              "celsius",
+              "fahrenheit",
+              "Imperial"
+            ]
           }
         },
-        "required": ["countries", "city", "unit"],
+        "required": [
+          "countries",
+          "city",
+          "unit"
+        ],
         "additionalProperties": false
       }
     }

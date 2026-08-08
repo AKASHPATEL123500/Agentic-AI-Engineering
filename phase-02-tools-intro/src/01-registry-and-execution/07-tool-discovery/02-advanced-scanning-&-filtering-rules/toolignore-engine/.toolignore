@@ -1,0 +1,6 @@
+// // ⚙️ .toolignore Parser Logic
+// Scan shuru hone se pehle check karo ki /tools folder mein .toolignore file exist karti hai ya nahi.
+
+// Agar exist karti hai, toh uske content ko read karke lines mein split karo (comments # aur empty lines ko filter karke).
+
+// Scanning ke waqt check karo: agar file ka naam ignore list ke kisi pattern se match karta hai, toh us path को skip kar do!

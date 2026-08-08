@@ -1,0 +1,12 @@
+# Unwanted tools ko ignore karo
+draft-
+test-
+fetch-
+delete-
+read-
+resize-
+validate-
+write-
+parse-
+hash-
+generate-

@@ -104,6 +104,28 @@ async function runTests() {
   registry2.clear();
   console.log("after clear, list length:", registry2.list().length);
 
+  // Export / Import tests
+  // FIX: add tests for exportFromJson() and importFromJSON(filePath)
+  try {
+    const registryForExport = new ToolRegistry({ allowOverWrite: true });
+    registryForExport.register(getWatherTool);
+    console.log("Exporting registry to sandbox/tool.json...");
+    registryForExport.exportFromJson();
+
+    // compute sandbox path relative to this test file
+    const path = await import("node:path");
+    const { fileURLToPath } = await import("node:url");
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+    const sandboxPath = path.resolve(__dirname, "../sandbox/tool.json");
+
+    const registryImported = new ToolRegistry({ allowOverWrite: true });
+    registryImported.importFromJSON(sandboxPath);
+    console.log("Imported registry length:", registryImported.list().length);
+  } catch (err: any) {
+    console.error("export/import test failed:", err?.message || err);
+  }
+
   console.log("\nAll registry tests completed.");
 }
 
