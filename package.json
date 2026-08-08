@@ -1,6 +1,7 @@
 {
 	"dependencies": {
 		"@biomejs/biome": "^2.5.6",
+		"@google/genai": "^2.16.0",
 		"@whiskeysockets/baileys": "^7.0.0-rc14",
 		"googleapis": "^174.0.1",
 		"husky": "^9.1.7",
