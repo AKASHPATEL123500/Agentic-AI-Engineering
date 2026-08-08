@@ -367,7 +367,7 @@ export async function connectWhatsApp() {
         // AI ka generated reply uthaya
         const aiReply =
           response.text ||
-          "Hello! Boss Akash abhi busy hain, main thodi der mein jawab deta hoon.";
+          "Hello! Boss Akash abhi busy hain, main thodi der mein jawab deta hoon..";
 
         // WhatsApp par Gemini ka dynamic reply bhej do
         await sock.sendMessage(senderNumber, {
