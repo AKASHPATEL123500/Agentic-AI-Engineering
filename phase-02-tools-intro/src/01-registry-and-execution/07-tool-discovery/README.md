@@ -93,3 +93,223 @@ If chaho, main ek initial `interfaces.ts` and `indexer.ts` scaffold bhi bana ke 
     ├── 10. Discovery Event Emitter & Report Generator
     └── 11. Discovery Runner Engine (Outputting clean File Paths to Loader)
 ```
+
+---
+
+# 🔍 Chapter 07: Production-Grade Tool Discovery Engine
+
+An automated, recursive, and performant **File System Tool Discovery Architecture** designed for agentic AI applications. This module scans project folders, resolves file paths, applies ignore rules (`.toolignore`), manages memory caches, emits lifecycle events, and hands clean `string[]` file paths to downstream layers (e.g., `ToolLoader`).
+
+---
+
+## 📐 High-Level Architecture & Separation of Concerns
+
+```text
+ 💻 HARD DISK (FileSystem)
+   └── /tools folder (/tools/weather.tool.ts, /tools/file.tool.ts)
+       │
+       │  [ 🛑 LAYER 1: TOOL DISCOVERY ENGINE ]
+       │  (Role: Scan filesystem & resolve clean file paths)
+       ▼
+ 📄 File Paths Array ["/abs/path/weather.tool.ts", "/abs/path/file.tool.ts"]
+       │
+       │  [ ⚙️ LAYER 2: TOOL LOADER ] (Next Stage)
+       │  (Role: Dynamic import() into Runnable JS Objects)
+       ▼
+ 📦 Loaded Tool Objects
+       │
+       │  [ 🗄️ LAYER 3: TOOL REGISTRY ]
+       │  (Role: $O(1)$ Storage, SemVer Guards, LLM Schemas)
+
+```
+
+> **Core Principle (Separation of Concerns):**
+> The Tool Discovery module **does NOT execute or dynamically import (`import()`) tool files**. Its sole responsibility is finding valid file paths and producing clean, validated output arrays.
+
+---
+
+## 📂 Module Directory Structure
+
+```text
+07-tool-discovery/
+├── 01-fundamentals-&-path-discovery/
+│   ├── src/tools/                  # Concrete tool files (*.tool.ts)
+│   └── scan-primitives.ts          # Single-level & Recursive directory scanners
+├── 02-advanced-scanning-&-filtering-rules/
+│   ├── .toolignore                 # Ignore patterns file
+│   └── scan-with-ignore.ts         # Prefix & Wildcard ignore engine
+├── 03-infrastructure-and-safety/
+│   ├── discovery.interface.ts      # IToolDiscoverer contract
+│   └── cache-discoverer.ts         # Memory cache & Deduplication guard
+└── 04-discovery-service-&-runner-project/
+    ├── discovery-events.ts         # EventEmitter for observability
+    └── discovery-runner.ts         # Final Orchestrator & Runner Test
+
+```
+
+---
+
+## 🛠️ Key Architectural Features & Modules
+
+### 1. File System Path Resolution & Recursive Scanner
+
+- Resolves relative paths into absolute system paths via `path.resolve()`.
+- Recursively navigates nested subdirectories (`fs.readdir` with `withFileTypes` / `fs.stat`).
+- Filters files matching the `.tool.ts` naming convention.
+
+### 2. `.toolignore` Pattern Engine
+
+- Supports prefix matching (e.g., `draft-`), exact file matches, and wildcard path exclusions.
+- Parses comments (`#`) and empty lines seamlessly.
+- Uses `Array.prototype.some()` to match filename prefixes without requiring strict full-path entries.
+
+### 3. In-Memory Caching & Safety
+
+- Implements the `IToolDiscoverer` contract interface.
+- Caches discovered paths in memory to avoid repeated, costly Disk I/O scans.
+- Deduplicates path entries to prevent duplicate downstream registration.
+
+### 4. Lifecycle Event System
+
+- Built on top of Node.js `EventEmitter`.
+- Emits decoupled observability events: `discovery:start`, `discovery:fileFound`, `discovery:fileIgnored`, and `discovery:complete`.
+
+---
+
+## 💻 Code Reference & Implementation
+
+### 1. Recursive Scanner with `.toolignore` Engine
+
+```typescript
+import fs from "node:fs/promises";
+import path from "node:path";
+import type { DiscoveryToolsEvents } from "./discovery-events";
+
+async function getIgnoreList(dirPath: string): Promise<string[]> {
+  try {
+    const ignoreFilePath = path.join(dirPath, ".toolignore");
+    const rawContent = await fs.readFile(ignoreFilePath, "utf-8");
+
+    return rawContent
+      .split("\n")
+      .map((line) => line.trim())
+      .filter((line) => line && !line.startsWith("#"));
+  } catch {
+    return [];
+  }
+}
+
+export async function scanToolsWithIgnore(
+  dirPath: string,
+  ignoreList: string[] = [],
+  events?: DiscoveryToolsEvents,
+): Promise<string[]> {
+  const absolutePath = path.resolve(dirPath);
+
+  if (ignoreList.length === 0) {
+    ignoreList = await getIgnoreList(absolutePath);
+  }
+
+  let discoveredTools: string[] = [];
+  const items = await fs.readdir(absolutePath);
+
+  for (const item of items) {
+    const fullPath = path.join(absolutePath, item);
+
+    // Prefix & Substring Matcher
+    const isIgnored = ignoreList.some((rule) => {
+      const cleanRule = rule.replace(/\*/g, "").trim();
+      return item.startsWith(cleanRule) || item.includes(cleanRule);
+    });
+
+    if (isIgnored) {
+      events?.emitFileIgnored(fullPath, "Matched .toolignore rule");
+      continue;
+    }
+
+    const stat = await fs.stat(fullPath);
+
+    if (stat.isDirectory()) {
+      const subFolderTools = await scanToolsWithIgnore(
+        fullPath,
+        ignoreList,
+        events,
+      );
+      discoveredTools = discoveredTools.concat(subFolderTools);
+    } else if (stat.isFile() && item.endsWith(".tool.ts")) {
+      discoveredTools.push(fullPath);
+      events?.emitFileFound(fullPath);
+    }
+  }
+
+  return discoveredTools;
+}
+```
+
+### 2. Cached Production Discoverer Class
+
+```typescript
+import type { IToolDiscoverer } from "./discovery.interface";
+import { DiscoveryToolsEvents } from "./discovery-events";
+import { scanToolsWithIgnore } from "./scan-with-ignore";
+
+export class CachedToolDiscoverer implements IToolDiscoverer {
+  private memory: string[] | null = null;
+  public events = new DiscoveryToolsEvents();
+
+  async discover(dirPath: string): Promise<string[]> {
+    // Cache Hit Optimization
+    if (this.memory !== null) {
+      return this.memory;
+    }
+
+    const startTime = Date.now();
+    this.events.emitStart(dirPath);
+
+    const freshPaths = await scanToolsWithIgnore(dirPath, [], this.events);
+
+    // Memory Storage & Cache Hit Preparation
+    this.memory = Array.from(new Set(freshPaths));
+
+    this.events.emitComplete(this.memory.length, Date.now() - startTime);
+    return this.memory;
+  }
+
+  clearMemory(): void {
+    this.memory = null;
+  }
+}
+```
+
+---
+
+## 🧪 Sample Execution Log
+
+```text
+==================================================
+🚀 STARTING TOOL DISCOVERY ENGINE
+==================================================
+
+💿 [Cache Miss] Scanning hard disk...
+📡 [EVENT]: Discovery started in -> D:\project\src\tools
+🟢 [FOUND]: weather.tool.ts
+🔴 [IGNORED]: draft-payment.tool.ts (Matched .toolignore rule)
+🟢 [FOUND]: calculate-tax.tool.ts
+
+🎉 [COMPLETE]: Found 2 tools in 3ms.
+
+Discovered File Paths Output:
+[
+  "D:\\project\\src\\tools\\weather.tool.ts",
+  "D:\\project\\src\\tools\\finance\\calculate-tax.tool.ts"
+]
+
+⚡ [Cache Hit] Returning paths directly from Memory!
+
+```
+
+---
+
+## ⏭️ Next Step
+
+With **Chapter 07 (Tool Discovery)** complete, the system outputs clean file paths ready for **Chapter 08 (Tool Loading System)**, which handles dynamic imports (`await import(path)`) to instantiate executable Tool Objects.

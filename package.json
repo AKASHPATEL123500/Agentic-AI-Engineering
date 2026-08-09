@@ -2,9 +2,12 @@
 	"dependencies": {
 		"@biomejs/biome": "^2.5.6",
 		"@google/genai": "^2.16.0",
+		"@langchain/core": "^1.2.5",
 		"@whiskeysockets/baileys": "^7.0.0-rc14",
+		"deepagents": "^1.12.2",
 		"googleapis": "^174.0.1",
 		"husky": "^9.1.7",
+		"langchain": "^1.5.5",
 		"qrcode-terminal": "^0.12.0"
 	},
 	"scripts": {

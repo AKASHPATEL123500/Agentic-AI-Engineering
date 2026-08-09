@@ -1,0 +1,45 @@
+{
+  "name": "wather_tool",
+  "description": "This is weather tool that fatch real time weather based on city and unit and more...",
+  "params": {
+    "def": {
+      "type": "object",
+      "shape": {
+        "city": {
+          "def": {
+            "type": "string",
+            "checks": [{}, {}, {}]
+          },
+          "type": "string",
+          "format": "lowercase",
+          "minLength": 1,
+          "maxLength": null
+        },
+        "unit": {
+          "def": {
+            "type": "default",
+            "innerType": {
+              "def": {
+                "type": "enum",
+                "entries": {
+                  "celsius": "celsius",
+                  "fahrenheit": "fahrenheit"
+                }
+              },
+              "type": "enum",
+              "enum": {
+                "celsius": "celsius",
+                "fahrenheit": "fahrenheit"
+              },
+              "options": ["celsius", "fahrenheit"]
+            },
+            "defaultValue": "celsius"
+          },
+          "type": "default"
+        }
+      }
+    },
+    "type": "object"
+  },
+  "version": "0.0.1"
+}
