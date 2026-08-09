@@ -1,0 +1,17 @@
+[
+  "D:\\agentic-ai-engineering\\phase-02-tools-intro\\src\\01-registry-and-execution\\07-tool-discovery\\01-fundamentals-&-path-discovery\\src\\tools\\delete-file.tool.ts",
+  "D:\\agentic-ai-engineering\\phase-02-tools-intro\\src\\01-registry-and-execution\\07-tool-discovery\\01-fundamentals-&-path-discovery\\src\\tools\\deprecated-v1.tool.ts",
+  "D:\\agentic-ai-engineering\\phase-02-tools-intro\\src\\01-registry-and-execution\\07-tool-discovery\\01-fundamentals-&-path-discovery\\src\\tools\\draft-payment.tool.ts",
+  "D:\\agentic-ai-engineering\\phase-02-tools-intro\\src\\01-registry-and-execution\\07-tool-discovery\\01-fundamentals-&-path-discovery\\src\\tools\\fetch-api.tool.ts",
+  "D:\\agentic-ai-engineering\\phase-02-tools-intro\\src\\01-registry-and-execution\\07-tool-discovery\\01-fundamentals-&-path-discovery\\src\\tools\\finance\\calculate-tax.tool.ts",
+  "D:\\agentic-ai-engineering\\phase-02-tools-intro\\src\\01-registry-and-execution\\07-tool-discovery\\01-fundamentals-&-path-discovery\\src\\tools\\finance\\rate-calulate.tool.ts",
+  "D:\\agentic-ai-engineering\\phase-02-tools-intro\\src\\01-registry-and-execution\\07-tool-discovery\\01-fundamentals-&-path-discovery\\src\\tools\\format-date.tool.ts",
+  "D:\\agentic-ai-engineering\\phase-02-tools-intro\\src\\01-registry-and-execution\\07-tool-discovery\\01-fundamentals-&-path-discovery\\src\\tools\\generate-id.tool.ts",
+  "D:\\agentic-ai-engineering\\phase-02-tools-intro\\src\\01-registry-and-execution\\07-tool-discovery\\01-fundamentals-&-path-discovery\\src\\tools\\hash-password.tool.ts",
+  "D:\\agentic-ai-engineering\\phase-02-tools-intro\\src\\01-registry-and-execution\\07-tool-discovery\\01-fundamentals-&-path-discovery\\src\\tools\\parse-json.tool.ts",
+  "D:\\agentic-ai-engineering\\phase-02-tools-intro\\src\\01-registry-and-execution\\07-tool-discovery\\01-fundamentals-&-path-discovery\\src\\tools\\read-file.tool.ts",
+  "D:\\agentic-ai-engineering\\phase-02-tools-intro\\src\\01-registry-and-execution\\07-tool-discovery\\01-fundamentals-&-path-discovery\\src\\tools\\resize-image.tool.ts",
+  "D:\\agentic-ai-engineering\\phase-02-tools-intro\\src\\01-registry-and-execution\\07-tool-discovery\\01-fundamentals-&-path-discovery\\src\\tools\\test\\test-calculator.tool.ts",
+  "D:\\agentic-ai-engineering\\phase-02-tools-intro\\src\\01-registry-and-execution\\07-tool-discovery\\01-fundamentals-&-path-discovery\\src\\tools\\validate-email.tool.ts",
+  "D:\\agentic-ai-engineering\\phase-02-tools-intro\\src\\01-registry-and-execution\\07-tool-discovery\\01-fundamentals-&-path-discovery\\src\\tools\\write-file.tool.ts"
+]

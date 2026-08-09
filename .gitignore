@@ -1,6 +1,6 @@
 # dependencies (bun install)
 node_modules
-
+**/whatsapp_session/
 # output
 out
 dist
