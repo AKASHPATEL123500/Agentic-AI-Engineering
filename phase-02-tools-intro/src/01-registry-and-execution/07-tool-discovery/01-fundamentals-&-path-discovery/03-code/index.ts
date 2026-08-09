@@ -7,36 +7,33 @@ import path from "node:path";
  */
 async function discoverTools(relativeFolder: string): Promise<string[]> {
   try {
-    // 1. Relative path ko Absolute (poora) path me convert karo
-    const absoluteFolderPath = path.resolve(relativeFolder);
-    console.log(`🔍 Scanning folder: ${absoluteFolderPath}\n`);
+    const absolutePath = path.resolve(relativeFolder);
+    console.log("Absolute Path: ", absolutePath);
 
-    // 2. Folder ke andar ki saari files ki list read karo
-    const allFiles = await fs.readdir(absoluteFolderPath);
+    const findFiles = await fs.readdir(absolutePath);
+    // console.log("This is files lits:: ", findFiles);
 
-    const toolPaths: string[] = [];
+    const toolList: string[] = [];
 
-    // 3. Loop chalao aur check karo kaun si file hamare kaam ki hai
-    for (const fileName of allFiles) {
-      // Har file ka poora path banao
-      const fullFilePath = path.join(absoluteFolderPath, fileName);
+    // loop
+    for (const fileName of findFiles) {
+      // console.log("this is loop file lits:", fileName);
+      const fullPath = await path.join(absolutePath, fileName);
+      // console.log("This is after loop result with absolute path:", fullPath);
 
-      // File ka extension (surname) pata karo
-      const fileExtension = path.extname(fileName);
-
-      // Agar file .ts hai, toh usko list me add karo
-      if (fileExtension === ".ts") {
-        toolPaths.push(fullFilePath);
-        console.log(`✅ Found Tool: ${fileName}`);
+      const fileExtenion = await path.extname(fullPath);
+      if (fileExtenion === ".ts") {
+        toolList.push(fullPath);
+        console.log("Tool found : ", fileName);
       } else {
-        console.log(`❌ Skipped (Not TypeScript): ${fileName}`);
+        console.log("Not found file:", fileName);
       }
     }
 
-    return toolPaths;
-  } catch (error: any) {
-    console.error(`🚨 Scanning failed: ${error.message}`);
-    return [];
+    return toolList;
+  } catch (error: unknown) {
+    console.log("Error", error.message);
+    throw error;
   }
 }
 
