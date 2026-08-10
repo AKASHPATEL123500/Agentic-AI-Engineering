@@ -28,7 +28,7 @@ import {
   exportRegistryToJSON,
   importFromJSON,
 } from "../04-advanced-registry-features/04-presistence-import-export.ts";
-
+import fs from "node:fs";
 // implements IToolRegistry Ka Kya Matlab Hai?
 // Matlab: implements ka matlab hota hai "wada karna" ya "contract sign karna".
 // Jab aap likhte hain class ToolRegistry implements IToolRegistry, toh aap TypeScript ko bol rahe hain:
@@ -83,6 +83,7 @@ export class ToolRegistry implements IToolRegistry {
     }
     // STEP 4: All checks passed -> Register / Update Tool in Map
     this.tool.set(normalizeName, tool);
+
     this.events.emmitRegister(tool);
   }
 

@@ -7,11 +7,13 @@ import { pathToFileURL } from "node:url";
 /**
  *
  * @param filePath
+ * @returns importedModule
  */
 
 export async function LoadToolFromPath(filePath: string): Promise<unknown> {
   // SETP 1: create a absoluet path
   const absoluetPath = path.resolve(filePath);
+  console.log("[ STEP 1 ] this is absoluet path:", absoluetPath);
 
   // STEP 2: Windows Path Fix (Crucial Step!)
   // Windows par path "D:\project\tool.ts" hota hai.
