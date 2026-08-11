@@ -526,6 +526,176 @@ agentic-ai-engineering/
 
 ---
 
+---
+
+## Tool regsitry, discovery, loader
+
+```text
+phase-02-tools-intro/
+│
+├── 06-tool-registry/                                           # 🗄️ STORAGE, INDEXING & LLM SCHEMA EXPORT
+│   ├── README.md
+│   └── src/
+│       ├── 01-tool-registry-fundamentals/                      # Core Map & Iteration Mechanics
+│       │   ├── forEach.ts
+│       │   ├── map.ts
+│       │   ├── MAP.md
+│       │   ├── practice2.ts
+│       │   ├── registry.ts
+│       │   └── README.md
+│       ├── 02-registry-contract-and-errors/                    # Contracts, Custom Errors & Metadata Specs
+│       │   ├── README.md
+│       │   └── src/
+│       │       ├── 01-registry-Interfaces-&-contracts.ts       # IToolRegistry interface
+│       │       ├── 02-custom-registry-errors.ts                # Custom Registry Exception classes
+│       │       ├── 03-registry-options-&-configuration.ts       # Registry config options (strictMetadataCheck, etc.)
+│       │       ├── 04-metadata-structer-searchability-and-routing.ts # Category/Tag metadata typing
+│       │       └── types.ts
+│       ├── 03-core-operations-and-validation/                  # Input Guards, CRUD & Version Handling
+│       │   ├── 01-name-normalization.ts                        # Lowercase / Trim tool name normalizer
+│       │   ├── 02-crud-method-logic.ts                         # register, get, has, unregister, list, clear
+│       │   ├── 03-strict-input-validations.ts                  # Zod parameter schema & metadata verification
+│       │   ├── 04-version-conflict-handling.ts                 # Version conflict resolution logic
+│       │   ├── curd.bug.md                                     # Bug tracker during CRUD implementation
+│       │   └── README.md
+│       ├── 04-advanced-registry-features/                      # Search, Events, Persistence & LLM Schema
+│       │   ├── 01-search-and-filter-system.ts                  # Category/tag search filters
+│       │   ├── 02-registry-events-lifecycle.ts                # Lifecycle event emitters (`tool:registered`, etc.)
+│       │   ├── 04-presistence-import-export.ts                 # JSON import/export registry serialization
+│       │   ├── 05-safe-llm.schema-export.ts                    # Zod-to-JSONSchema conversion for LLMs
+│       │   ├── README.md
+│       │   └── 06-mini-project-runner/                         # End-to-End Test Suite & Verification
+│       │       ├── index.ts
+│       │       └── src/
+│       │           ├── meta/response.meta.ts
+│       │           ├── registry/
+│       │           │   ├── regsiter.ts
+│       │           │   └── resgitry-2.ts
+│       │           ├── test/
+│       │           │   ├── register-tool.ts
+│       │           │   └── test/
+│       │           │       ├── duplicate-test.ts
+│       │           │       ├── regiter.ts
+│       │           │       └── version.check.ts
+│       │           └── tools/
+│       │               └── get-weather-tool.ts
+│       ├── practice/                                           # Sandbox practice routines & bug notes
+│       │   ├── .bug.md
+│       │   ├── .tool.bug.md
+│       │   ├── connection.md
+│       │   ├── meta.respone.ts
+│       │   ├── normalize.tool.ts
+│       │   ├── presistence.ts
+│       │   ├── registry.error.ts
+│       │   ├── registry.tools.ts
+│       │   ├── registry.type.ts
+│       │   ├── runtool/index.ts
+│       │   ├── safe.llm.schema.ts
+│       │   ├── sandbox/tool.json
+│       │   ├── strict.validation.ts
+│       │   ├── test/ (test.ts, test2.ts, test3.ts)
+│       │   ├── tool.metadata.ts
+│       │   ├── tools.ts
+│       │   ├── types.ts
+│       │   └── version.check.ts
+│       └── summary/
+│           ├── GEMINI.md
+│           └── GOOGLE.md
+│
+├── 07-tool-discovery/                                          # 🔍 HARD DISK RECURSIVE SCANNER & CACHING
+│   ├── README.md
+│   ├── 01-fundamentals-&-path-discovery/                       # FS Primitives & Single-level Directory Scanning
+│   │   ├── 01-architecture-&-mental-model.md
+│   │   ├── 02-code.ts
+│   │   ├── 02-codes/scann.file.ts
+│   │   ├── 02-node.js-path-&-FS-primitives.md
+│   │   ├── 03-code/index.ts
+│   │   ├── 03-single-level-directory-scanner.md
+│   │   ├── README.md
+│   │   ├── src/
+│   │   │   ├── index.ts
+│   │   │   └── tools/                                          # Sample tools directory with ignore targets
+│   │   │       ├── .toolignore
+│   │   │       ├── data.json
+│   │   │       ├── delete-file.tool.ts
+│   │   │       ├── deprecated-v1.tool.ts
+│   │   │       ├── draft-payment.tool.ts
+│   │   │       ├── fetch-api.tool.ts
+│   │   │       ├── finance/
+│   │   │       │   ├── calculate-tax.tool.ts
+│   │   │       │   └── rate-calulate.tool.ts
+│   │   │       ├── format-date.tool.ts
+│   │   │       ├── generate-id.tool.ts
+│   │   │       ├── hash-password.tool.ts
+│   │   │       ├── index.c
+│   │   │       ├── index.txt
+│   │   │       ├── parse-json.tool.ts
+│   │   │       ├── read-file.tool.ts
+│   │   │       ├── resize-image.tool.ts
+│   │   │       ├── test/test-calculator.tool.ts
+│   │   │       ├── validate-email.tool.ts
+│   │   │       └── write-file.tool.ts
+│   │   └── test/scan.test.ts
+│   ├── 02-advanced-scanning-&-filtering-rules/                  # Recursive Scanning & Toolignore Engine
+│   │   ├── extension-naming-pattren matcher.ts
+│   │   ├── recerive.scanning.file.ts                           # Recursive directory walker logic
+│   │   ├── run.ts
+│   │   ├── README.md
+│   │   └── toolignore-engine/
+│   │       ├── .toolignore
+│   │       ├── 06-toolignore-discovery.ts
+│   │       ├── toolignore.ts                                  # Ignore rules parser (`node_modules`, `.git`, etc.)
+│   │       └── google/ (explain.md, ignore.code.ts, GOOGLE.md, README.md)
+│   ├── 03-discovery-Infrastructure-&-safety/                   # Contracts, Caching & Path Deduplication
+│   │   ├── 07-discovery-interface.ts                          # IToolDiscoverer contract
+│   │   ├── 08-discovery-cache-engine.ts                        # In-memory discovery caching engine
+│   │   ├── 09-duplicate-invaild-file-path.ts                   # Path sanitization & deduplication
+│   │   └── README.md
+│   └── 04-discovery-service-&-runner-project/                   # Events & Service Execution
+│       ├── 10-discovery-event.emiiter.ts                      # Discovery lifecycle event emitter
+│       ├── 11-discovery-run.ts
+│       ├── discover.tool.json
+│       └── README.md
+│
+└── 08-tool-loading-system/                                     # ⚙️ DYNAMIC IMPORTING, ISOLATION & ORCHESTRATION
+    ├── README.md
+    ├── test/index.ts                                            # Loader unit runner
+    ├── 00-tool-loading-intro/README.md
+    ├── 01-dynamic-module-importing/                            # ESM Dynamic Loading & Export Extraction
+    │   ├── 01-static-vs-dynamic-imports.ts
+    │   ├── 02-module-exporter-extractor.ts                     # Normalizes named vs default exports
+    │   ├── README.md
+    │   ├── 02-run/
+    │   │   ├── extract.from.module.json
+    │   │   └── index.ts
+    │   ├── practice/index.ts
+    │   └── tools/
+    │       ├── meta.data.ts
+    │       ├── tool.meta.data.ts
+    │       ├── types.ts
+    │       └── weather.tool.ts                                 # Verified executable weather tool
+    ├── 02-tool-validation-and-sanitization/                    # Shape Checkers & Sandboxed Isolation
+    │   ├── 03-shape-checker-guard.ts                           # Contract shape guard (name, params, execute)
+    │   ├── 04-corrupted-module-isolation.ts                    # Try-catch sandbox + Windows ESM pathToFileURL fix
+    │   └── README.md
+    ├── 03-loader-infrastructure-and-events/                    # Loader Interfaces & Event Lifecycle
+    │   ├── 05-loader-contract-interface.ts                     # IToolLoader interface (load, loadMany)
+    │   └── 06-loader-event-lifecycle.ts                        # Loader event emitters
+    └── 04-loader-service-and-registry-bridge/                  # Batch Loading & Orchestration Bridge
+        ├── 07-batch-tool-loader.ts                             # LoadTools class (Promise.all parallel batch loader)
+        └── 08-pipline-orch/
+            └── orchtretion/
+                ├── 08-auto-registration-pipeline.ts            # ToolAutoRegistrationPipeline Orchestrator
+                ├── interface.ts                                # Pipeline interface definitions
+                ├── run.ts                                      # Live pipeline verification runner
+                ├── get.llm.schema.json
+                ├── registry.tools.json
+                └── tool.json
+
+```
+
+---
+
 ## 🚀 Getting Started
 
 ### Prerequisites
