@@ -1,0 +1,36 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "wather_tool",
+      "description": "This is weather tool that fatch real time weather based on city and unit and more...",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": "string",
+            "minLength": 1,
+            "format": "lowercase",
+            "pattern": "^[^A-Z]*$",
+            "description": "This is City name"
+          },
+          "unit": {
+            "default": "celsius",
+            "description": "This is unit choose any one",
+            "type": "string",
+            "enum": [
+              "celsius",
+              "fahrenheit"
+            ]
+          }
+        },
+        "required": [
+          "city",
+          "unit"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+]

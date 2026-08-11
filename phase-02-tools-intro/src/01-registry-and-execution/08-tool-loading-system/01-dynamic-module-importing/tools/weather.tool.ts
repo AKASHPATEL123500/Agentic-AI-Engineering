@@ -1,6 +1,6 @@
 import { z } from "zod";
-import type { ToolType } from "../../../../00-tool-anatomy/04-input-and-output-standardization/src/types.ts";
 import { createMeta } from "../../../../00-tool-anatomy/04-input-and-output-standardization/src/tool.meta.ts";
+import type { ToolType } from "./types.ts";
 
 const weatherSchema = z.object({
   city: z
@@ -26,8 +26,13 @@ export const WeatherTool: ToolType<typeof weatherSchema, WeatherData> = {
   name: "wather_tool",
   description:
     "This is weather tool that fatch real time weather based on city and unit and more...",
-  params: weatherSchema,
+  parameter: weatherSchema,
   version: "0.0.1",
+  metadata: {
+    category: "weather",
+    tags: ["fetch-live-weather", "weather-tool", "100%-accurate"],
+    priority: 1,
+  },
   execute: async (args, context) => {
     try {
       if (!context) {

@@ -18,8 +18,13 @@ export async function safeLoadToolModule(
   filePath: string,
 ): Promise<SafeLoadResult> {
   try {
+    // 🛡️ FIX: Absolute path (D:\...) ko valid file:// URL mein convert karo!
+    const absoluteFilePath = path.resolve(filePath);
+
+    // ES Module file path pass to
+    const fileUrl = pathToFileURL(absoluteFilePath).href;
     // 1. Dynamic Import (Agar file syntax error se corrupted hai, toh 'catch' block pakad lega)
-    const rawModule = await import(filePath);
+    const rawModule = await import(fileUrl);
 
     // 2. Extract Tool Object
     const cleanTool = await extractToolFromModule(rawModule);

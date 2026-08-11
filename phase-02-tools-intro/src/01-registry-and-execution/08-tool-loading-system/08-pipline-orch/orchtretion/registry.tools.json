@@ -1,0 +1,48 @@
+{
+  "version": "1.0.0",
+  "exportedAt": "2026-08-11T04:58:54.531Z",
+  "toolCounts": 1,
+  "tools": [
+    {
+      "name": "wather_tool",
+      "description": "This is weather tool that fatch real time weather based on city and unit and more...",
+      "version": "0.0.1",
+      "metadata": {
+        "category": "weather",
+        "tags": [
+          "fetch-live-weather",
+          "weather-tool",
+          "100%-accurate"
+        ],
+        "priority": 1
+      },
+      "parameter": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": "string",
+            "minLength": 1,
+            "format": "lowercase",
+            "pattern": "^[^A-Z]*$",
+            "description": "This is City name"
+          },
+          "unit": {
+            "default": "celsius",
+            "description": "This is unit choose any one",
+            "type": "string",
+            "enum": [
+              "celsius",
+              "fahrenheit"
+            ]
+          }
+        },
+        "required": [
+          "city",
+          "unit"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

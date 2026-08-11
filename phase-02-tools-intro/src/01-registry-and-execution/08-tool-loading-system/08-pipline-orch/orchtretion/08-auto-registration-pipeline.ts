@@ -1,52 +1,98 @@
-import type { CachedToolDiscoverer } from "../../../07-tool-discovery/03-discovery-Infrastructure-&-safety/08-discovery-cache-engine.ts";
-import type { LoadTools } from "../../04-loader-service-and-registry-bridge/07-batch-tool-loader.ts";
-import fs from "node:fs";
-export interface ToolRegistryLike {
-  register(tool: any): void;
-}
+import { ToolRegistry } from "../../../06-tool-registry/src/03-core-operations-and-validation/02-crud-method-logic.ts";
+import { CachedToolDiscoverer } from "../../../07-tool-discovery/03-discovery-Infrastructure-&-safety/08-discovery-cache-engine.ts";
+import { LoadTools } from "../../04-loader-service-and-registry-bridge/07-batch-tool-loader.ts";
+import type {
+  IToolAutoRegistrationPipline,
+  ToolRegistrationResult,
+} from "./interface";
 
-export async function autoRegisterToolsPipeline(
-  dirPath: string,
-  discoverer: CachedToolDiscoverer,
-  loader: LoadTools,
-  registry: ToolRegistryLike,
-) {
-  console.log(`🚀 Starting Auto-Registration Pipeline for: ${dirPath}\n`);
+export class ToolAutoRegisterationPipline implements IToolAutoRegistrationPipline {
+  // Constructor bolta hai: "Mujhe Discoverer, Loader, aur Registry laa kar do!"
+  constructor(
+    private readonly discovery: CachedToolDiscoverer,
+    private readonly loader: LoadTools,
+    private readonly toolRegistry: ToolRegistry,
+  ) {}
+  async registerFromDirectory(
+    dirPath: string,
+  ): Promise<ToolRegistrationResult> {
+    // Ab is class ke andar hum un teeno ko use kar sakte hain!
+    const result: ToolRegistrationResult = {
+      discoverd: 0,
+      loaded: 0,
+      registered: 0,
+      faild: 0,
+      failuers: [],
+    };
 
-  // STEP 1: Discovery Engine se Paths nikaalo
-  const filePaths = await discoverer.discover(dirPath);
-  console.log(`🔍 Discovered ${filePaths.length} tool file(s).`);
+    let filePaths: string[] = [];
 
-  if (filePaths.length === 0) {
-    console.log("⚠️ No tools found to register.");
-    return { registeredCount: 0, failedCount: 0 };
-  }
-
-  // STEP 2: Batch Loader se Saari Files Parallel Load Karo
-  const loadResults = await loader.loadMany(filePaths);
-
-  let registeredCount = 0;
-  let failedCount = 0;
-
-  // STEP 3: Loop Chala Kar Registry Mein Inject Karo
-  for (const item of loadResults) {
-    if (item.sussess && item.tool) {
-      registry.register(item.tool);
-      registeredCount++;
-      const data = JSON.stringify(item.tool, null, 2);
-      await fs.writeFileSync("tool.json", data);
-      console.log(`✅ Auto-Registered: ${item.tool.name}`);
-    } else {
-      failedCount++;
-      console.error(
-        `❌ Failed to register tool from ${item.filePath}:`,
-        item.error,
-      );
+    // STEP 1: Discover dir path
+    try {
+      filePaths = await this.discovery.discover(dirPath);
+      result.discoverd = filePaths.length;
+    } catch (error) {
+      result.faild++;
+      result.failuers.push({
+        filePath: dirPath,
+        stage: "discoverd",
+        error: error instanceof Error ? error.message : String(error),
+      });
+      return result; // Discovery hi fail ho gayi toh aage nahi badhenge
     }
-  }
 
-  console.log(
-    `\n🎉 Pipeline Finished: ${registeredCount} registered, ${failedCount} failed.`,
-  );
-  return { registeredCount, failedCount };
+    // STEP 2 & 3 — Loading & Registration Loop
+    for (const filePath of filePaths) {
+      try {
+        const loadedTools = await this.loader.load(filePath);
+
+        // Check if loading failed gracefully inside the loader
+        if (!loadedTools.sussess || !loadedTools.tool) {
+          result.faild++;
+          result.failuers.push({
+            filePath: filePath,
+            stage: "loading",
+            error: loadedTools.error || "Faild to load tools",
+          });
+          continue; // skip tool who is faild and next
+        }
+        result.loaded++;
+
+        // STEP 3 — Registration
+        try {
+          this.toolRegistry.register(loadedTools.tool);
+          result.registered++;
+        } catch (error) {
+          result.faild++;
+          result.failuers.push({
+            filePath,
+            stage: "registertion",
+            error: error instanceof Error ? error.message : String(error),
+          });
+        }
+      } catch (error) {
+        // Unexpected system/import crash
+        result.faild++;
+        result.failuers.push({
+          filePath,
+          stage: "loading",
+          error: error instanceof Error ? error.message : String(error),
+        });
+      }
+    }
+    return result;
+  }
 }
+
+// const regsitry = new ToolRegistry({
+//   allowOverWrite: true,
+//   strictMetadataCheck: true,
+//   strictValidation: true,
+// });
+
+// const load = new LoadTools();
+// const discovery = new CachedToolDiscoverer();
+
+// const auto = new ToolAutoRegisterationPipline(discovery, load, regsitry);
+
+// auto.registerFromDirectory("../orchtretion/08-auto-registration-pipeline.ts");

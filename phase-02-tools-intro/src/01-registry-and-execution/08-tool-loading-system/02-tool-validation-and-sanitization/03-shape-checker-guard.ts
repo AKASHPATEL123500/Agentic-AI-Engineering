@@ -26,7 +26,7 @@ export function validateToolShape(tool: any): ValidationResult {
     errors.push("Tool 'description' is missing or not a string.");
   }
 
-  if (!tool.params || typeof tool.params !== "object") {
+  if (!tool.parameter || typeof tool.parameter !== "object") {
     errors.push("Tool 'params' is missing or not a valid schema object.");
   }
 

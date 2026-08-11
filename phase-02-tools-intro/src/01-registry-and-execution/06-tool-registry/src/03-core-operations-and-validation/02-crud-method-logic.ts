@@ -153,10 +153,7 @@ export class ToolRegistry implements IToolRegistry {
     });
 
     // Ab is ekdam clean bina-functions wale data ko file me save karenge
-    exportRegistryToJSON(
-      cleanJsonTools as any,
-      "../04-advanced-registry-features/06-mini-project-runner/sandbox/registry.tools.json",
-    );
+    exportRegistryToJSON(cleanJsonTools as any, "registry.tools.json");
     console.log("Registry successfully clean JSON file mein save ho gayi hai!");
   }
 
