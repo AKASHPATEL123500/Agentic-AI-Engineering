@@ -45,3 +45,16 @@ export function validateToolArgumenst(
     throw error;
   }
 }
+
+// ye ek function hai jo
+// two paras le raha hai jise ki tool, args
+// to hum iss arge ko iss tool.paramter.parse(args)
+// agr yaha args validate hoga yani hamare tool ke ander
+// jo paramters hai agr usse yaha args match kar gaya to
+// hum yahi re retrun kar denge agr match nahi karega to error
+// throw karega aur ss error ko hum catch kar rahe hao
+
+// Too iss phase ka main foucs tahi hai ki
+// llm ne jo args diya hai kya waha
+// hamare tool ke params se match karta hai ki nahi
+// bass

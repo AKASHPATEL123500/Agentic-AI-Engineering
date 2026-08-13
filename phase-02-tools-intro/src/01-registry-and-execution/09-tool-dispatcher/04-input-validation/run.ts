@@ -63,6 +63,7 @@ try {
   }
 }
 
+// ======================================================================================
 // get_weather
 // 🟢 Validation System Active & Testing Started...
 
@@ -75,6 +76,8 @@ try {
 // Tool Name: wather_tool
 // Issues List From Zod:
 //  [Field: city] -> Invalid input: expected string, received number
+
+// =======================================================================================
 
 // Bhai, aapka confusion ekdum genuine hai. Jab goodArgs mein teen cheezein (countries, city, unit) hain, toh output mein sirf city aur unit hi kyun bacha, iska poora logic Zod Schema Strip Mechanism par kaam karta hai.
 // Isse point-to-point bina kisi faltu bakwaas ke samajhte hain.

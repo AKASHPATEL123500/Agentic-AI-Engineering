@@ -8,5 +8,5 @@
 02. Tede-mede data ko ek saaf Payload mein badla.Phase
 03. Us payload ke naam se asli Tool Object dhoondh kar nikaala.Phase
 04. Tool ke andar baithne se pehle, us payload ke arguments ko tool ke
- Zod Schema se cross-verify (validate) kiya taaki code kabhi crash na ho.
+    Zod Schema se cross-verify (validate) kiya taaki code kabhi crash na ho.
 ```
