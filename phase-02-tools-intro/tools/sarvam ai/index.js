@@ -3,7 +3,7 @@ import "dotenv/config";
 import * as fs from "fs";
 
 const client = new SarvamAIClient({
-  apiSubscriptionKey: "sk_4tj2bdr5_Ko1mtRp2XXZrDgA0I0OLLNr0",
+  apiSubscriptionKey: "******************************",
 });
 
 const response = await client.textToSpeech.convert({

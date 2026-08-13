@@ -266,7 +266,7 @@ const qrcode = require("qrcode-terminal");
 
 // Yahan apni mili hui Gemini API key paste kijiye
 const ai = new GoogleGenAI({
-  apiKey: "AQ.Ab8RN6LlRuVeTqYi-lPchQK6XBBaddWXD1B2U1mbE7nZWxcIyQ",
+  apiKey: "**************************************",
 });
 
 export async function connectWhatsApp() {
