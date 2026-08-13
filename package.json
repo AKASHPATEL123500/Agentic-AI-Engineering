@@ -5,10 +5,12 @@
 		"@langchain/core": "^1.2.5",
 		"@whiskeysockets/baileys": "^7.0.0-rc14",
 		"deepagents": "^1.12.2",
+		"dotenv": "^17.4.2",
 		"googleapis": "^174.0.1",
 		"husky": "^9.1.7",
 		"langchain": "^1.5.5",
-		"qrcode-terminal": "^0.12.0"
+		"qrcode-terminal": "^0.12.0",
+		"sarvamai": "^1.1.8"
 	},
 	"scripts": {
 		"prepare": "husky",

@@ -24,8 +24,10 @@ async function testPipline() {
   const result = await orchtrationPipline.registerFromDirectory(toolFilePath);
   const getLLMScema = registry.getLLMSchema();
   const data = JSON.stringify(getLLMScema, null, 2);
-  await fs.writeFileSync("get.llm.schema.json", data);
-  const exportJson = registry.exportFromJson();
+  fs.writeFileSync("get.llm.schema.json", data);
+  // const exportJson = registry.exportFromJson();
+  // const exportFromJson = JSON.stringify(exportJson, null, 2);
+  // fs.writeFileSync("export-from.json", exportFromJson);
   console.log("==================================================");
   console.log("📊 PIPELINE EXECUTION STATS:");
   console.log("==================================================");
@@ -37,7 +39,7 @@ async function testPipline() {
   console.log("\n🗄️ Registered Tool Keys:", Array.from(registry.list()));
   console.log("Get Registry tool:", registry.get("wather_tool"));
   console.log("Get LLM Schema tool:", data);
-  console.log("export from json test:", exportJson);
+  console.log("export from json test:", registry.exportFromJson());
 }
 
 testPipline();

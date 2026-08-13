@@ -157,7 +157,7 @@ export class ToolRegistry implements IToolRegistry {
     console.log("Registry successfully clean JSON file mein save ho gayi hai!");
   }
 
-  importFromJSON(filePath: string): void {
+  importFromJSONS(filePath: string): void {
     // 1. Utility function se saare saved tools ka array lekar aaye
     const loadedTools: ToolType[] = importFromJSON(filePath);
 
@@ -197,17 +197,3 @@ export class ToolRegistry implements IToolRegistry {
     );
   }
 }
-
-// const register: ToolRegistry = new ToolRegistry();
-
-// register.events.onRegister((toolName, tool) => {
-//   console.log(
-//     `[SYSTEM LOG]: Naya tool system me add ho gaya hai ➔ Name: "${toolName}", Version: "${tool?.version}"`,
-//   );
-// });
-
-// register.events.onUnregister((toolName, tool) => {
-//   console.log(
-//     `[ALERT]: Tool '${toolName}' removed from registry! Routing table update required.`,
-//   );
-// });
