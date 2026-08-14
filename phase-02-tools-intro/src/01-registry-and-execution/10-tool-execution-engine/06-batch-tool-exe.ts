@@ -24,6 +24,17 @@ export async function executeMultipleToolsInParallel(
   });
 
   // Yeh saare promises ke ek sath complete hone ka wait karega
-  const data = Promise.all(exetionTime);
-  return data;
+  const data = await Promise.allSettled(exetionTime);
+  return data.map((result) => {
+    if (result.status === "fulfilled") {
+      return result.value;
+    }
+    return {
+      exectionId: "",
+      success: false,
+      requestId: "",
+      toolResponse: null,
+      engineError: result.reason?.message || "Unknown error",
+    } as ToolExecutionStandardResponse;
+  });
 }
