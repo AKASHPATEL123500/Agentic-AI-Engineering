@@ -70,6 +70,8 @@ export const WeatherTool: ToolType<typeof weatherSchema, WeatherData> = {
 
       return {
         success: true,
+        status: "success",
+        message: `wather fetch successfully ${args.city}.`,
         data: mockData,
         error: null,
         meta: createMeta("complete"),

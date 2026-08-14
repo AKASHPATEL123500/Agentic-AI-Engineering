@@ -1,7 +1,8 @@
 import { ToolRegistry } from "../../06-tool-registry/src/03-core-operations-and-validation/02-crud-method-logic.ts";
 import { WeatherTool } from "../../08-tool-loading-system/01-dynamic-module-importing/tools/weather.tool.ts";
+import { ToolExecution } from "../../10-tool-execution-engine/05-tool-execution-engine.ts";
 import { validateToolArgumenst } from "../04-input-validation/10-input-validation.ts";
-import { ContextEngine } from "./13-context-construction.ts";
+import { ContextEngine } from "./13-context-construction.ts.ts";
 
 const myRegistry = new ToolRegistry({
   strictValidation: true,
@@ -44,7 +45,10 @@ async function testToolDisptacerUserContext() {
       );
 
       console.log("\n🚀 Triggering tool.execute(cleanArgs, strictContext)...");
-      const data = await tool.execute(validateArgs, valiadeteContext);
+      // to the 09-tool-executin system
+      console.log("Data send to Tool Execution.............");
+
+      const data = await ToolExecution(tool, validateArgs, valiadeteContext);
       console.log("\n✅ Tool Executed Successfully! Standardized Response:");
       console.log(JSON.stringify(data, null, 2));
     }
