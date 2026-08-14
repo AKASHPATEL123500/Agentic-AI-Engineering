@@ -54,6 +54,18 @@ async function testToolDisptacerUserContext() {
         tool,
         validatedArgsFromPhase04,
       );
+      const validateArgs2 = validateToolArgumenst(
+        tool,
+        validatedArgsFromPhase041,
+      );
+      const validateArgs3 = validateToolArgumenst(
+        tool,
+        validatedArgsFromPhase042,
+      );
+      const validateArgs4 = validateToolArgumenst(
+        tool,
+        validatedArgsFromPhase043,
+      );
       console.log("👉 [Phase 04 Output] Validated Args:", validateArgs);
 
       const valiadeteContext = ContextEngine.build(liveUserSession);
@@ -67,8 +79,24 @@ async function testToolDisptacerUserContext() {
       console.log("Data send to Tool Execution.............");
 
       const data = await executeMultipleToolsInParallel(
-        tool,
-        validateArgs,
+        [
+          {
+            tool: tool,
+            args: validateArgs,
+          },
+          {
+            tool: tool,
+            args: validateArgs2,
+          },
+          {
+            tool: tool,
+            args: validateArgs3,
+          },
+          {
+            tool: tool,
+            args: validateArgs4,
+          },
+        ],
         valiadeteContext,
       );
       console.log("\n✅ Tool Executed Successfully! Standardized Response:");
