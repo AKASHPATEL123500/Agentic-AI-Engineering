@@ -1,5 +1,6 @@
 #!/usr/bin/env bun
 import { Command } from "commander";
+import { runWakeUp } from "./tui/wakeup.ts";
 
 const program = new Command();
 
@@ -12,7 +13,7 @@ program
   .command("wakeup")
   .description("show the cli")
   .action(async () => {
-    console.log("CLI is ready");
+    await runWakeUp();
   });
 
 await program.parseAsync(process.argv);
