@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { ToolType } from "../../06-tool-registry/src/02-registry-contract-and-errors/src/types.ts";
+import type { ToolType } from "../../../Tools/types/types.ts";
 
 /**
  * Custom Error: Jab LLM galat input bhejega, toh yeh error trigger hogi.
@@ -35,7 +35,7 @@ export function validateToolArgumenst(
   args: Record<string, any>,
 ): Record<string, any> {
   try {
-    const valiadetArgs = tool.parameter.parse(args);
+    const valiadetArgs = tool.params.parse(args);
 
     return valiadetArgs;
   } catch (error) {

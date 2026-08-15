@@ -3,8 +3,8 @@
 //Kya tool object mein name present hai?
 
 import type { RegistryOptions } from "../02-registry-contract-and-errors/src/03-registry-options-&-configuration.ts";
-import type { ToolType } from "../02-registry-contract-and-errors/src/types.ts";
 import { InvalidToolError } from "../02-registry-contract-and-errors/src/02-custom-registry-errors.ts";
+import type { ToolType } from "../../../../Tools/types/types.ts";
 
 // Kya execute function present aur callable hai?
 // Kya parameter schema (Zod) defined hai?
@@ -44,7 +44,7 @@ export function ValidateTools(tool: ToolType, option: RegistryOptions): void {
   }
 
   // 4. Parameters Schema check
-  if (!tool.parameter || typeof tool.parameter !== "object") {
+  if (!tool.params || typeof tool.params !== "object") {
     throw new InvalidToolError(
       tool.name,
       "Tool must contain a valid Zod parameter schema.",

@@ -58,3 +58,9 @@ export interface ToolType<
     context: ToolContext,
   ) => Promise<StandaradrizationToolResponse<TOutPut>>;
 }
+
+// export interface ToolMemory {
+//   set(sessionId: string, Tool: Record<any, any>): boolean;
+//   get(sessionId: string): ToolExecutionStandardResponse;
+//   clear(sessionId: string): void;
+// }

@@ -1,5 +1,5 @@
+import { getWeatherTool } from "../../../Tools/get-weather.tool.ts";
 import { ToolRegistry } from "../../06-tool-registry/src/03-core-operations-and-validation/02-crud-method-logic.ts";
-import { WeatherTool } from "../../08-tool-loading-system/01-dynamic-module-importing/tools/weather.tool.ts";
 import { ToolExecution } from "../../10-tool-execution-engine/05-tool-execution-engine.ts";
 import { executeMultipleToolsInParallel } from "../../10-tool-execution-engine/06-batch-tool-exe.ts";
 import { validateToolArgumenst } from "../04-input-validation/10-input-validation.ts";
@@ -10,7 +10,7 @@ const myRegistry = new ToolRegistry({
   strictMetadataCheck: true,
 });
 console.time("start Time to regsiter tool in registry");
-myRegistry.register(WeatherTool);
+myRegistry.register(getWeatherTool);
 console.timeEnd("end time  And tool register successfully");
 
 console.time("🟢 Phase 05 Test Started: Context Injection Engine...\n");
@@ -47,7 +47,7 @@ const liveUserSession = {
 
 async function testToolDisptacerUserContext() {
   try {
-    const tool = myRegistry.get(WeatherTool.name);
+    const tool = myRegistry.get(getWeatherTool.name);
 
     if (tool) {
       const validateArgs = validateToolArgumenst(
@@ -78,27 +78,28 @@ async function testToolDisptacerUserContext() {
       // to the 09-tool-executin system
       console.log("Data send to Tool Execution.............");
 
-      const data = await executeMultipleToolsInParallel(
-        [
-          {
-            tool: tool,
-            args: validateArgs,
-          },
-          {
-            tool: tool,
-            args: validateArgs2,
-          },
-          {
-            tool: tool,
-            args: validateArgs3,
-          },
-          {
-            tool: tool,
-            args: validateArgs4,
-          },
-        ],
-        valiadeteContext,
-      );
+      const data = await ToolExecution(tool, validateArgs2, valiadeteContext);
+      // const data = await executeMultipleToolsInParallel(
+      //   [
+      //     {
+      //       tool: tool,
+      //       args: validateArgs,
+      //     },
+      //     {
+      //       tool: tool,
+      //       args: validateArgs2,
+      //     },
+      //     {
+      //       tool: tool,
+      //       args: validateArgs3,
+      //     },
+      //     {
+      //       tool: tool,
+      //       args: validateArgs4,
+      //     },
+      //   ],
+      //   valiadeteContext,
+      // );
       console.log("\n✅ Tool Executed Successfully! Standardized Response:");
       console.log(JSON.stringify(data, null, 2));
     }
