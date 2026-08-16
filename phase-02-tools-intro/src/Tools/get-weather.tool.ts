@@ -38,11 +38,16 @@ export const getWeatherTool: ToolType<typeof getWeatherScehma, any> = {
   params: getWeatherScehma,
   metadata: {
     category: ["weather", "live-weather"],
-    tags: ["api", "live", "forecast"],
+    tags: ["api", "live", "forecast", "public"],
     version: "1.0.0",
     ppriority: 1,
     createdAt: new Date().toISOString(),
     timestamps: new Date().toISOString(),
+    secuirty: {
+      riskLevel: "low",
+      requiresApproval: false,
+      allowedRoles: ["admin", "guest", "premium", "user", "vip"],
+    },
   },
   execute: async (rawArgs, context) => {
     try {

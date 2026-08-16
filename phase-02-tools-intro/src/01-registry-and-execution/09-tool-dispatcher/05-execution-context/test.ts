@@ -1,3 +1,4 @@
+import { secuirtyInterceptorSystem } from "../../../04-security-control-and-built-ins/17-permissions-and-human-approval/03-security-interceptor.ts";
 import { getWeatherTool } from "../../../Tools/get-weather.tool.ts";
 import { ToolRegistry } from "../../06-tool-registry/src/03-core-operations-and-validation/02-crud-method-logic.ts";
 import { ToolExecution } from "../../10-tool-execution-engine/05-tool-execution-engine.ts";
@@ -42,7 +43,7 @@ const validatedArgsFromPhase043 = {
 const liveUserSession = {
   userId: "user_vip_888",
   sessionId: "session_token_xyz_123",
-  role: "vip" as const,
+  role: "user" as const,
 };
 
 async function testToolDisptacerUserContext() {
@@ -78,7 +79,21 @@ async function testToolDisptacerUserContext() {
       // to the 09-tool-executin system
       console.log("Data send to Tool Execution.............");
 
-      const data = await ToolExecution(tool, validateArgs2, valiadeteContext);
+      // cast tool to any to satisfy differing ToolType generic shapes across modules
+      const secuirty = await secuirtyInterceptorSystem(
+        tool as any,
+        valiadeteContext,
+        validateArgs2,
+      );
+      if (!secuirty.procced) {
+        console.log(secuirty.blockedResponse);
+        return;
+      }
+      const data = await ToolExecution(
+        tool as any,
+        validateArgs2,
+        valiadeteContext,
+      );
       // const data = await executeMultipleToolsInParallel(
       //   [
       //     {
