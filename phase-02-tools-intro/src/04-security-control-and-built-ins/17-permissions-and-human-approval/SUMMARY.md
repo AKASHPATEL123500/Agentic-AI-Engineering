@@ -45,3 +45,8 @@
        (Halt Dispatcher)             [ ToolExecution ]
                                     (Execute & Log Memory)
 ```
+
+GOAL 1 = interface rule and inject in tool metadata
+GOAL 2 = create a checker if approval need or not
+GAOT 3 = interface UI CLI banaya jaha per user ko approval dikega ( evalateApprovalSystem)
+GOAL 4 = intercepter ye kya kargi uss tool ko run manage karne kaam and retun a result

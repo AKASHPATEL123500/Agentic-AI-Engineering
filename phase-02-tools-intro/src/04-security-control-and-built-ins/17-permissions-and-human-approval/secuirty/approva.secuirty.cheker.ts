@@ -7,8 +7,8 @@ export type approvalStatus = "ALLOWED" | "REQUIRES_APPROVAL" | "DENIED";
 export interface secuirtyApprovalResult {
   status: approvalStatus;
   isAllowd: boolean;
-  resion?: string;
   policy: secuirtyApprovalHuman;
+  resion?: string;
 }
 
 /**

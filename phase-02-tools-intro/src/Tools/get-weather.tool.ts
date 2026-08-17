@@ -1,7 +1,6 @@
 import { z } from "zod";
 import type { ToolType } from "./types/types.ts";
 import { metaData } from "./meta/tool.res.metadata.ts";
-import { ToolMemorys } from "../shared/services/tool.memory.ts";
 
 const getWeatherScehma = z.object({
   countries: z
@@ -44,9 +43,9 @@ export const getWeatherTool: ToolType<typeof getWeatherScehma, any> = {
     createdAt: new Date().toISOString(),
     timestamps: new Date().toISOString(),
     secuirty: {
-      riskLevel: "low",
+      riskLevel: "critical",
       requiresApproval: false,
-      allowedRoles: ["admin", "guest", "premium", "user", "vip"],
+      allowedRoles: ["admin"],
     },
   },
   execute: async (rawArgs, context) => {
@@ -78,21 +77,22 @@ export const getWeatherTool: ToolType<typeof getWeatherScehma, any> = {
         throw new Error("City Not Found In DB");
       }
 
+      // TODO: yaha pending mein hai
       // ◄── LIVE MEMORY FETCH ──►
-      const tm = new ToolMemorys();
-      const sessionMemory = tm.get(context.sessionId);
+      // const tm = new ToolMemorys();
+      // const sessionMemory = tm.get(context.sessionId);
 
-      // Agar is session ke andar history array nahi bana, to initialize karo
-      if (!sessionMemory.history) {
-        sessionMemory.history = [];
-      }
+      // // Agar is session ke andar history array nahi bana, to initialize karo
+      // if (!sessionMemory.history) {
+      //   sessionMemory.history = [];
+      // }
 
-      // Naya search raw arguments history list mein add karo
-      sessionMemory.history.push(validateRawArgs);
+      // // Naya search raw arguments history list mein add karo
+      // sessionMemory.history.push(validateRawArgs);
 
-      // ◄── LIVE MEMORY SAVE ──►
-      // Poore updated object ko store mein wapas save karo!
-      tm.set(context.sessionId, sessionMemory);
+      // // ◄── LIVE MEMORY SAVE ──►
+      // // Poore updated object ko store mein wapas save karo!
+      // tm.set(context.sessionId, sessionMemory);
 
       const mockData: WeatherData = {
         countries: validateRawArgs?.countries,
@@ -109,10 +109,7 @@ export const getWeatherTool: ToolType<typeof getWeatherScehma, any> = {
         status: "success",
         message: "Weather fetched successfully with historical log.",
         // 🔥 FIX: data mein ab pure session ki purani history return hogi!
-        data: {
-          currentWeather: mockData,
-          searchHistory: sessionMemory.history, // Pehle ke saare items dikhenge!
-        },
+        data: mockData,
         error: null,
         meta: metaData("complete", {
           name: getWeatherTool.name,

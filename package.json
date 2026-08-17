@@ -3,6 +3,7 @@
     "@biomejs/biome": "^2.5.6",
     "@clack/core": "^1.4.3",
     "@clack/prompts": "^1.7.0",
+    "@e2b/code-interpreter": "^2.7.1",
     "@google/genai": "^2.16.0",
     "@langchain/core": "^1.2.5",
     "@whiskeysockets/baileys": "^7.0.0-rc14",

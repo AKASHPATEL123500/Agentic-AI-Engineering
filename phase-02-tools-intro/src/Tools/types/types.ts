@@ -1,6 +1,5 @@
 import { z } from "zod";
 import type { ToolMetaData } from "./tool.metadata.ts";
-import type { ToolMemory } from "../../shared/services/types.ts";
 
 // FIX: Relaxed response interface to match actual tool return structures (tools use `meta` and optional `error`).
 
@@ -13,7 +12,7 @@ export interface ToolContext {
   timestamps?: string;
   ip?: string;
   userAgent?: string;
-  memory: ToolMemory;
+  // TODO: isko baad mein kargeneg memory: ToolMemory;
 }
 export interface StandaradrizationToolResponse<TData> {
   success: boolean;

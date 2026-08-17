@@ -7,22 +7,27 @@ Lekin, bina user se approval pooche direct error print hone ka asli kaaran ab te
 
 Tune getWeatherTool ke metadata ke andar security rule ye set kiya hai:
 
+```ts
 secuirty: {
 riskLevel: "critical", // 🚨 Risk Level critical hai!
 requiresApproval: false,
 allowedRoles: ["admin"], // 🔒 Sirf 'admin' role allowed hai!
 }
+```
 
 Aur tere Dispatcher main script (testToolDisptacerUserContext) ke andar tune context ka role ye pass kiya hai:
 
+```ts
 const liveUserSession = {
-userId: "user_vip_888",
-sessionId: "session_token_xyz_123",
-role: "user" as const, // ❌ Yahan role 'user' hai, 'admin' nahi!
+  userId: "user_vip_888",
+  sessionId: "session_token_xyz_123",
+  role: "user" as const, // ❌ Yahan role 'user' hai, 'admin' nahi!
 };
+```
 
 Ab dhyan se evaluateSecurityPolicy ka logic dekho:
 
+```ts
 const userRole = context.role; // "user"const isUserRoleExixts = policy.allowedRoles.includes(userRole); // ["admin"].includes("user") -> FALSE
 if (!isUserRoleExixts) {
 return {
@@ -32,6 +37,7 @@ resion: `Access Denied...`,
 ...
 };
 }
+```
 
 Natija: Kyunki user ka role authorized nahi hai, policy ne seedha DENIED feka. Aur tere interceptor ne DENIED dekhte hi bina prompt dikhaye direct blocked response return kar diya!
 
@@ -39,10 +45,12 @@ Natija: Kyunki user ka role authorized nahi hai, policy ne seedha DENIED feka. A
 
 Jab interceptor se response wapas jata hai dispatcher file me:
 
+```ts
 const secuirty = await secuirtyInterceptorSystem(...);if (!secuirty.procced) {
 console.log(secuirty.blockedResponse); // 👈 Ye direct error print karke ruk jata hai!
 return;
 }
+```
 
 ---
 
@@ -51,6 +59,7 @@ return;
 Agar tum chahte ho ki user role hone par bhi approval prompt pooche, toh tool ki policy me allowedRoles me "user" daalna hoga, ya fir testing ke liye session me role "admin" karna hoga.
 Main niche poora functional Dispatcher File Code de raha hoon jise chalate hi CLI interactive prompt open ho jayega aur validation bypass nahi hogi:
 
+```ts
 import { secuirtyInterceptorSystem } from "../../../04-security-control-and-built-ins/17-permissions-and-human-approval/03-security-interceptor.ts";import { getWeatherTool } from "../../../Tools/get-weather.tool.ts";import { ToolRegistry } from "../../06-tool-registry/src/03-core-operations-and-validation/02-crud-method-logic.ts";import { ToolExecution } from "../../10-tool-execution-engine/05-tool-execution-engine.ts";import { validateToolArgumenst } from "../04-input-validation/10-input-validation.ts";import { ContextEngine } from "./13-context-construction.ts.ts";import chalk from "chalk";
 const myRegistry = new ToolRegistry({
 strictValidation: true,
@@ -124,6 +133,7 @@ console.error(chalk.bgRed("\n💥 Dispatcher Runtime Error: "), error);
 }
 // Execution initialization
 testToolDispatcherWithSecurity();
+```
 
 ---
 
