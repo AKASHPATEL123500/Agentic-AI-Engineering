@@ -1,5 +1,3 @@
-import { getWeatherTool } from "../tools/weather.tool.ts";
-
 const startTime = Date.now();
 const requestId = crypto.randomUUID();
 
@@ -13,27 +11,36 @@ export const metaData = (
     | "unauthrozied"
     | "guest-error"
     | "denied",
+  toolDetails?: {
+    name: string;
+    discription: string;
+    version: string;
+    riskLevel: string;
+    userId: string;
+    role: string;
+    requestedBy: string;
+  },
 ) => {
   return {
-    executionMs: `${Date.now() - startTime}Ms`,
+    executionMs: `${Date.now() - startTime} Ms`,
     timestamps: new Date().toISOString(),
     userDeteails: {
-      userId: "",
-      role: "",
+      userId: toolDetails?.userId,
+      role: toolDetails?.role,
       requestAt: new Date(),
       requestedId: requestId,
-      requetedBy: "",
+      requetedBy: toolDetails?.userId,
     },
     toolDteails: {
-      name: getWeatherTool?.name,
-      discription: getWeatherTool?.description,
-      version: getWeatherTool?.version,
-      riskLevel: getWeatherTool?.metadata?.secuirty?.riskLevel,
+      name: toolDetails?.name,
+      discription: toolDetails?.discription,
+      version: toolDetails?.version,
+      riskLevel: toolDetails?.riskLevel,
       createdAt: new Date(),
     },
     agentDteails: {
-      name: getWeatherTool?.name,
-      version: getWeatherTool?.version,
+      name: toolDetails?.name,
+      version: toolDetails?.version,
       createdAt: new Date(),
     },
   };

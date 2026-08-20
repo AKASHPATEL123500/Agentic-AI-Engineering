@@ -1,4 +1,4 @@
-import { getWeatherTool } from "../../tools/weather.tool.ts";
+import { getWeatherTool } from "../../tools/weather/weather.tool.ts";
 
 async function testGetWeather() {
   const response = await getWeatherTool.exexute(

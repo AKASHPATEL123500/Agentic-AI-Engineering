@@ -1,20 +1,20 @@
-import type { weatherResponse } from "../res/weather.respone.ts";
-import { weatherSchema } from "../schema/weather/weather.schem.ts";
-import type { IToolType } from "../types/types.ts";
+import type { weatherResponse } from "../../res/weather.respone.ts";
+import { weatherSchema } from "../../schema/weather/weather.schem.ts";
+import type { IToolType } from "../../types/types.ts";
 import { z } from "zod";
-import { metaData } from "../utils/response.metadat.ts";
+import { metaData } from "../../utils/response.metadat.ts";
 import "dotenv/config";
 
 // api key setup
 const apikey =
-  process.env.OPEN_WEATHER_API_KEY || "1768f50bab6a7292aeec344d1e7079bd";
+  process.env.OPEN_WEATHER_API_KEY || "***************************";
 
 // type of weather schema
 type weatherInput = z.infer<typeof weatherSchema>;
 
 export const getWeatherTool: IToolType<typeof weatherSchema, weatherResponse> =
   {
-    name: "get_wather",
+    name: "get_weather",
     description:
       "This is weather tool that fetch live weather data and is is very accurate tool",
     version: "1.0.0",

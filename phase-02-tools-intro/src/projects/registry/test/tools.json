@@ -1,0 +1,210 @@
+{
+  "version": "1.0.0",
+  "exportedAt": "2026-08-20T12:20:16.433Z",
+  "toolCounts": 3,
+  "tools": [
+    {
+      "name": "get_weather",
+      "description": "This is weather tool that fetch live weather data and is is very accurate tool",
+      "version": "1.0.0",
+      "metadata": {
+        "name": "get_weather",
+        "tags": [
+          "live",
+          "real",
+          "weather",
+          "data",
+          "accurate"
+        ],
+        "category": [
+          "weather",
+          "live-weather",
+          "real-time",
+          "feautres"
+        ],
+        "discription": "This is weather tool that fetch live weather data and is is very accurate tool",
+        "priority": 1,
+        "version": "1.0.0",
+        "secuirty": {
+          "allowedRole": [
+            "user",
+            "admin",
+            "guest",
+            "premium",
+            "vip"
+          ],
+          "riskLevel": "low",
+          "requiresApproval": false
+        },
+        "timestamp": "2026-08-20T12:20:16.422Z",
+        "createdAt": "2026-08-20T12:20:16.422Z"
+      },
+      "params": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Citye Name (delhi, Tokoyo and ect)"
+          },
+          "units": {
+            "default": "metric",
+            "description": "Unit: 'celsius'|'fahrenheit'|'imperial' (mapped to OpenWeather)",
+            "type": "string",
+            "enum": [
+              "metric",
+              "imperial",
+              "standard"
+            ]
+          }
+        },
+        "required": [
+          "city",
+          "units"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "read_file",
+      "description": "Read a file from disk with validation and safe path handling",
+      "version": "1.0.0",
+      "metadata": {
+        "name": "read_file",
+        "tags": [
+          "file",
+          "read-file",
+          "content-read",
+          "code-read",
+          "etc",
+          "live"
+        ],
+        "category": [
+          "file-system",
+          "read-file",
+          "read-content"
+        ],
+        "discription": "Read file content safely and return string",
+        "priority": 1,
+        "version": "1.0.0",
+        "secuirty": {
+          "allowedRole": [
+            "user",
+            "admin",
+            "guest",
+            "premium",
+            "vip"
+          ],
+          "riskLevel": "low",
+          "requiresApproval": false
+        },
+        "timestamp": "2026-08-20T12:20:16.411Z",
+        "createdAt": "2026-08-20T12:20:16.412Z"
+      },
+      "params": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "filePath": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Aapko jo file read karni hai, uska absolute ya relative path."
+          },
+          "encoding": {
+            "default": "utf-8",
+            "description": "File ka text encoding format (default: utf-8).",
+            "type": "string",
+            "enum": [
+              "utf-8",
+              "ascii",
+              "base64"
+            ]
+          }
+        },
+        "required": [
+          "filePath",
+          "encoding"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "write_file",
+      "description": "This is write file tool and write content is tha file",
+      "version": "1.0.0",
+      "metadata": {
+        "name": "write_file",
+        "tags": [
+          "file",
+          "create",
+          "content",
+          "live"
+        ],
+        "category": [
+          "file-system",
+          "write-file",
+          "write-content"
+        ],
+        "discription": "This is write file tool and write content is tha file",
+        "priority": 1,
+        "version": "1.0.0",
+        "secuirty": {
+          "allowedRole": [
+            "user",
+            "admin",
+            "guest",
+            "premium",
+            "vip"
+          ],
+          "riskLevel": "low",
+          "requiresApproval": false
+        },
+        "timestamp": "2026-08-20T12:20:16.413Z",
+        "createdAt": "2026-08-20T12:20:16.414Z"
+      },
+      "params": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "filePath": {
+            "type": "string",
+            "minLength": 1,
+            "description": "File path to create a file in the dircetory"
+          },
+          "content": {
+            "type": "string",
+            "description": "Content that us write in the file while creating a file"
+          },
+          "encoding": {
+            "default": "utf-8",
+            "description": "Encoding that is need to erite a file to set encoding",
+            "type": "string",
+            "enum": [
+              "utf-8",
+              "ascii",
+              "base64",
+              "binary"
+            ]
+          },
+          "mode": {
+            "default": "append",
+            "description": "Mode that helps to write content append and overite mode",
+            "type": "string",
+            "enum": [
+              "append",
+              "overwrite"
+            ]
+          }
+        },
+        "required": [
+          "filePath",
+          "content",
+          "encoding",
+          "mode"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ]
+}
