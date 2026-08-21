@@ -1,44 +1,9 @@
-{
-  "version": "1.0.0",
-  "exportedAt": "2026-08-20T16:52:48.369Z",
-  "toolCounts": 3,
-  "tools": [
-    {
+[
+  {
+    "type": "function",
+    "function": {
       "name": "get_weather",
       "description": "This is weather tool that fetch live weather data and is is very accurate tool",
-      "version": "1.0.0",
-      "metadata": {
-        "name": "get_weather",
-        "tags": [
-          "live",
-          "real",
-          "weather",
-          "data",
-          "accurate"
-        ],
-        "category": [
-          "weather",
-          "live-weather",
-          "real-time",
-          "feautres"
-        ],
-        "discription": "This is weather tool that fetch live weather data and is is very accurate tool",
-        "priority": 1,
-        "version": "1.0.0",
-        "secuirty": {
-          "allowedRole": [
-            "user",
-            "admin",
-            "guest",
-            "premium",
-            "vip"
-          ],
-          "riskLevel": "low",
-          "requiresApproval": false
-        },
-        "timestamp": "2026-08-20T16:52:48.359Z",
-        "createdAt": "2026-08-20T16:52:48.359Z"
-      },
       "params": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "type": "object",
@@ -65,43 +30,13 @@
         ],
         "additionalProperties": false
       }
-    },
-    {
+    }
+  },
+  {
+    "type": "function",
+    "function": {
       "name": "read_file",
       "description": "Read a file from disk with validation and safe path handling",
-      "version": "1.0.0",
-      "metadata": {
-        "name": "read_file",
-        "tags": [
-          "file",
-          "read-file",
-          "content-read",
-          "code-read",
-          "etc",
-          "live"
-        ],
-        "category": [
-          "file-system",
-          "read-file",
-          "read-content"
-        ],
-        "discription": "Read file content safely and return string",
-        "priority": 1,
-        "version": "1.0.0",
-        "secuirty": {
-          "allowedRole": [
-            "user",
-            "admin",
-            "guest",
-            "premium",
-            "vip"
-          ],
-          "riskLevel": "low",
-          "requiresApproval": false
-        },
-        "timestamp": "2026-08-20T16:52:48.345Z",
-        "createdAt": "2026-08-20T16:52:48.346Z"
-      },
       "params": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "type": "object",
@@ -128,41 +63,13 @@
         ],
         "additionalProperties": false
       }
-    },
-    {
+    }
+  },
+  {
+    "type": "function",
+    "function": {
       "name": "write_file",
       "description": "This is write file tool and write content is tha file",
-      "version": "1.0.0",
-      "metadata": {
-        "name": "write_file",
-        "tags": [
-          "file",
-          "create",
-          "content",
-          "live"
-        ],
-        "category": [
-          "file-system",
-          "write-file",
-          "write-content"
-        ],
-        "discription": "This is write file tool and write content is tha file",
-        "priority": 1,
-        "version": "1.0.0",
-        "secuirty": {
-          "allowedRole": [
-            "user",
-            "admin",
-            "guest",
-            "premium",
-            "vip"
-          ],
-          "riskLevel": "low",
-          "requiresApproval": false
-        },
-        "timestamp": "2026-08-20T16:52:48.348Z",
-        "createdAt": "2026-08-20T16:52:48.348Z"
-      },
       "params": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "type": "object",
@@ -206,5 +113,5 @@
         "additionalProperties": false
       }
     }
-  ]
-}
+  }
+]

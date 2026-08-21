@@ -35,7 +35,7 @@ export const getWeatherTool: IToolType<typeof weatherSchema, weatherResponse> =
       timestamp: new Date().toISOString(),
       createdAt: new Date().toISOString(),
     },
-    exexute: async (args, context) => {
+    execute: async (args, context) => {
       try {
         // validate args
         const validateArs = weatherSchema.parse(args) as weatherInput;

@@ -2,7 +2,7 @@ import {
   IDuplicateToolError,
   IToolNotFoundError,
 } from "../error/tool.registry.custom.err.ts";
-import { IConvertLLMSchema } from "../helper/llm.schema.ts";
+import { IConvertLLMSchema, type LLMSchema } from "../helper/llm.schema.ts";
 import { INameNormlizetion } from "../helper/tool.name.normalize.ts";
 import {
   IToolSearchByCategory,
@@ -10,11 +10,15 @@ import {
 } from "../helper/tool.search.ts";
 import { IToolValiadate } from "../helper/tool.validator.ts";
 import { INewerVersionCheck } from "../helper/tool.version.check.ts";
-import { IToolsSaveInJSONFile } from "../prisistence/tools.save.in.json.file.ts";
+import {
+  ISaveToolsImport,
+  IToolsSaveInJSONFile,
+} from "../prisistence/tools.save.in.json.file.ts";
 import { getWeatherTool } from "../tools/weather/weather.tool.ts";
 import type { IToolRegistry } from "../types/registry.types.ts";
 import type { IToolRegistrySetting } from "../types/setting.ts";
 import type { IToolType } from "../types/types.ts";
+import fs from "node:fs";
 
 export class ToolRegistry implements IToolRegistry {
   private tool: Map<string, IToolType> = new Map();
@@ -92,7 +96,7 @@ export class ToolRegistry implements IToolRegistry {
     const data = IToolSearchByTag(this.list(), tag);
     return data;
   }
-  toolsSaveInJson(): void {
+  toolsSaveInJsonFile(): void {
     const cleanTools = this.list().map((tool) => {
       return {
         name: tool.name,
@@ -104,5 +108,37 @@ export class ToolRegistry implements IToolRegistry {
     });
     IToolsSaveInJSONFile(cleanTools, "tools.json");
     console.log("File created suucessfully and data save");
+  }
+  toolLoadFromJsonFile(filePath: string): void {
+    const loadTools: IToolType[] = ISaveToolsImport(filePath);
+
+    const orginalStrictValidation = this.options.strictValidation;
+    this.options.strictValidation = false;
+
+    loadTools.forEach((tools) => {
+      const rehydreatedTool: IToolType = {
+        ...tools,
+        exexute: async (args, context) => {
+          console.log(
+            `🔄 Fallback execute triggered for restored tool: ${tools.name}`,
+          );
+          return { success: true } as any;
+        },
+      };
+
+      this.register(rehydreatedTool);
+    });
+
+    this.options.strictValidation = orginalStrictValidation;
+    console.log(
+      `${loadTools.length} tools file se registry mein load ho gaye hain.`,
+    );
+  }
+
+  getLLMSchema(): LLMSchema[] {
+    const data = this.list().map((tool) => IConvertLLMSchema(tool));
+    const strinfyData = JSON.stringify(data, null, 2);
+    fs.writeFileSync("tool.schema.json", strinfyData);
+    return data;
   }
 }

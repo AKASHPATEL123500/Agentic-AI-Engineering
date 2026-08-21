@@ -27,7 +27,7 @@ export function IToolValiadate(
     );
   }
 
-  if (!tool.exexute || typeof tool.exexute !== "function") {
+  if (!tool.execute || typeof tool.execute !== "function") {
     throw new IInvalidToolError(
       tool.name,
       "Tool must be a contain valid 'execute' function",

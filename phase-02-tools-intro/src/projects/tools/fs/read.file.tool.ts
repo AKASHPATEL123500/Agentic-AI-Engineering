@@ -27,7 +27,7 @@ export const readFileTool: IToolType<
     timestamp: new Date().toISOString(),
     createdAt: new Date().toISOString(),
   },
-  exexute: async (args, context) => {
+  execute: async (args, context) => {
     const start = Date.now();
     try {
       // validate args

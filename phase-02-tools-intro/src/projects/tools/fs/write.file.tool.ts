@@ -30,7 +30,7 @@ export const writeFileTool: IToolType<typeof writeFileSchema, writeFileResult> =
       timestamp: new Date().toISOString(),
       createdAt: new Date().toISOString(),
     },
-    exexute: async (args, context) => {
+    execute: async (args, context) => {
       try {
         const validateArgs = writeFileSchema.parse(args) as writeFileInput;
         if (!validateArgs) {

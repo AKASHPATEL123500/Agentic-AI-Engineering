@@ -12,7 +12,7 @@ export interface IToolType<
   version: string;
   params: TParams;
   metadata: IToolMetadata;
-  exexute: (
+  execute: (
     args: z.infer<TParams>,
     context: IToolContext,
   ) => Promise<IToolResponse<TOutPut>>;

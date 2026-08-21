@@ -10,5 +10,5 @@ export interface IToolRegistry {
   searchByCategory?(category: string): IToolType[];
   searchByTag?(tag: string): IToolType[];
   toolsSaveInJson?(): void;
-  importSaveToolInToolRegistry?(filePath: string): IToolType[];
+  toolLoadFromJsonFile?(filePath: string): void;
 }

@@ -1,0 +1,84 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "read_file",
+      "description": "Read a file from disk with validation and safe path handling",
+      "params": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "filePath": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Aapko jo file read karni hai, uska absolute ya relative path."
+          },
+          "encoding": {
+            "default": "utf-8",
+            "description": "File ka text encoding format (default: utf-8).",
+            "type": "string",
+            "enum": [
+              "utf-8",
+              "ascii",
+              "base64"
+            ]
+          }
+        },
+        "required": [
+          "filePath",
+          "encoding"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "write_file",
+      "description": "This is write file tool and write content is tha file",
+      "params": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "filePath": {
+            "type": "string",
+            "minLength": 1,
+            "description": "File path to create a file in the dircetory"
+          },
+          "content": {
+            "type": "string",
+            "description": "Content that us write in the file while creating a file"
+          },
+          "encoding": {
+            "default": "utf-8",
+            "description": "Encoding that is need to erite a file to set encoding",
+            "type": "string",
+            "enum": [
+              "utf-8",
+              "ascii",
+              "base64",
+              "binary"
+            ]
+          },
+          "mode": {
+            "default": "append",
+            "description": "Mode that helps to write content append and overite mode",
+            "type": "string",
+            "enum": [
+              "append",
+              "overwrite"
+            ]
+          }
+        },
+        "required": [
+          "filePath",
+          "content",
+          "encoding",
+          "mode"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+]
