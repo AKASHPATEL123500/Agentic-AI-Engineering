@@ -6,8 +6,7 @@ import { metaData } from "../../utils/response.metadat.ts";
 import "dotenv/config";
 
 // api key setup
-const apikey =
-  process.env.OPEN_WEATHER_API_KEY || "1768f50bab6a7292aeec344d1e7079bd";
+const apikey = process.env.OPEN_WEATHER_API_KEY || "*****************";
 
 // type of weather schema
 type weatherInput = z.infer<typeof weatherSchema>;
@@ -111,7 +110,15 @@ export const getWeatherTool: IToolType<typeof weatherSchema, weatherResponse> =
             data,
           },
           error: null,
-          metadata: metaData("complete"),
+          metadata: metaData("complete", {
+            name: getWeatherTool.name || "",
+            discription: getWeatherTool.description || "",
+            requestedBy: context.userId || "",
+            riskLevel: getWeatherTool.metadata.secuirty.riskLevel || "low",
+            role: context.role,
+            userId: context.userId,
+            version: getWeatherTool.version,
+          }),
         };
       } catch (error: unknown | any) {
         return {

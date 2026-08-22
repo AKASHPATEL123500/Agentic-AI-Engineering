@@ -1,6 +1,5 @@
 const startTime = Date.now();
 const requestId = crypto.randomUUID();
-
 export const metaData = (
   status:
     | "complete"
@@ -41,6 +40,7 @@ export const metaData = (
     agentDteails: {
       name: toolDetails?.name,
       version: toolDetails?.version,
+      status: status,
       createdAt: new Date(),
     },
   };
