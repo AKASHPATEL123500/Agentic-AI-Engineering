@@ -7,7 +7,7 @@ import "dotenv/config";
 
 // api key setup
 const apikey =
-  process.env.OPEN_WEATHER_API_KEY || "***************************";
+  process.env.OPEN_WEATHER_API_KEY || "1768f50bab6a7292aeec344d1e7079bd";
 
 // type of weather schema
 type weatherInput = z.infer<typeof weatherSchema>;

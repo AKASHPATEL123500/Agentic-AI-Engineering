@@ -17,17 +17,10 @@
             "default": "utf-8",
             "description": "File ka text encoding format (default: utf-8).",
             "type": "string",
-            "enum": [
-              "utf-8",
-              "ascii",
-              "base64"
-            ]
+            "enum": ["utf-8", "ascii", "base64"]
           }
         },
-        "required": [
-          "filePath",
-          "encoding"
-        ],
+        "required": ["filePath", "encoding"],
         "additionalProperties": false
       }
     }
@@ -54,29 +47,16 @@
             "default": "utf-8",
             "description": "Encoding that is need to erite a file to set encoding",
             "type": "string",
-            "enum": [
-              "utf-8",
-              "ascii",
-              "base64",
-              "binary"
-            ]
+            "enum": ["utf-8", "ascii", "base64", "binary"]
           },
           "mode": {
             "default": "append",
             "description": "Mode that helps to write content append and overite mode",
             "type": "string",
-            "enum": [
-              "append",
-              "overwrite"
-            ]
+            "enum": ["append", "overwrite"]
           }
         },
-        "required": [
-          "filePath",
-          "content",
-          "encoding",
-          "mode"
-        ],
+        "required": ["filePath", "content", "encoding", "mode"],
         "additionalProperties": false
       }
     }

@@ -21,7 +21,7 @@ export async function ToolExecution<T>(
       tool,
       args,
       context,
-      (timeoutMs = 10),
+      timeoutMs,
       signals,
     );
 
